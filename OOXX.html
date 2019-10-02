@@ -30,21 +30,38 @@
             if (array[0][0] == array[1][1] && array[2][2] == array[1][1]) 
             {
                 alert(array[0][0] + "贏了")
+                Clear()
             } 
             else if (array[2][0] == array[1][1] && array[0][2] == array[1][1])
             {
                 alert(array[2][0] + "贏了")
+                Clear()
             }
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 3; i++) 
+            {
                 if (array[i][0] == array[i][1] && array[i][1] == array[i][2]) 
                 {
                     alert(array[i][0] + "贏了")
+                    Clear()
                 } 
                 else if (array[0][i] == array[1][i] && array[1][i] == array[2][i])
                 {
                     alert(array[0][i] + "贏了")
+                    Clear()
                 }
             }
+        }
+        function Clear() {
+            document.getElementById('r11').innerText = '_'
+            document.getElementById('r12').innerText = '_'
+            document.getElementById('r13').innerText = '_'
+            document.getElementById('r21').innerText = '_'
+            document.getElementById('r22').innerText = '_'
+            document.getElementById('r23').innerText = '_'
+            document.getElementById('r31').innerText = '_'
+            document.getElementById('r32').innerText = '_'
+            document.getElementById('r33').innerText = '_'
+            array = [["a","b","c"],["d","e","f"],["g","h","i"]]
         }
     </script>
 </head>
