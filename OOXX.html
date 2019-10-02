@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        var flag = true
+        var array = [["a","b","c"],["d","e","f"],["g","h","i"]]
+        var count = 0
+        function SetPoint(obj,x,y) 
+        {
+            const item = document.getElementById(obj)
+            if(item.innerText != "_") return
+            if (flag == true) 
+            {
+                item.innerText = "O"
+                array[x][y] = "O"
+            } 
+            else 
+            {
+                item.innerText = "X"
+                array[x][y] = "X"
+            }
+            count++
+            flag = !flag
+            if (count > 4) {
+                Judge()
+            }
+        }
+        function Judge() {
+            if (array[0][0] == array[1][1] && array[2][2] == array[1][1]) 
+            {
+                alert(array[0][0] + "贏了")
+            } 
+            else if (array[2][0] == array[1][1] && array[0][2] == array[1][1])
+            {
+                alert(array[2][0] + "贏了")
+            }
+            for (let i = 0; i < 3; i++) {
+                if (array[i][0] == array[i][1] && array[i][1] == array[i][2]) 
+                {
+                    alert(array[i][0] + "贏了")
+                } 
+                else if (array[0][i] == array[1][i] && array[1][i] == array[2][i])
+                {
+                    alert(array[0][i] + "贏了")
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="font-size: 80px">
+        <table border="1" style="width: 300px;height:300px">
+            <tr>
+                <td id = 'r11' onclick="SetPoint('r11',0,0)">_</td>
+                <td id = 'r12' onclick="SetPoint('r12',0,1)">_</td>
+                <td id = 'r13' onclick="SetPoint('r13',0,2)">_</td>
+            </tr>
+            <tr>
+                <td id = 'r21' onclick="SetPoint('r21',1,0)">_</td>
+                <td id = 'r22' onclick="SetPoint('r22',1,1)">_</td>
+                <td id = 'r23' onclick="SetPoint('r23',1,2)">_</td>
+            </tr>
+            <tr>
+                <td id = 'r31' onclick="SetPoint('r31',2,0)">_</td>
+                <td id = 'r32' onclick="SetPoint('r32',2,1)">_</td>
+                <td id = 'r33' onclick="SetPoint('r33',2,2)">_</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
