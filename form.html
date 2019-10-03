@@ -5,6 +5,7 @@
 </head>
 <body>
     <form 
+    id = 'form'
     action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
     method="POST">
         <fieldset style="border-radius: 10px">
@@ -25,8 +26,8 @@
             <label for="hobby">興趣:</label>
             <input type="checkbox" name="gethobby" id="music"">音樂
             <input type="checkbox" name="gethobby" id="sport">運動
-            <input type="checkbox" name="gethobby" id="">閱讀
-            <input type="checkbox" name="gethobby" id="">電影
+            <input type="checkbox" name="gethobby" id="read">閱讀
+            <input type="checkbox" name="gethobby" id="movie">電影
             <br>
             <label for="pro">專長:</label>
             <textarea name="context" id="context" cols="30" rows="10" placeholder="請輸入專長"></textarea>
@@ -47,6 +48,9 @@
             <label for="address">其他地址</label>
             <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址">
         </fieldset>
+        <br>
+        <input type="checkbox" name="mustcheck" id="mustcheck" required="required">同意你隨便用個資
+        <br>
         <br>
         <button type="submit">送件</button>
         <input type="reset" value="清除">
