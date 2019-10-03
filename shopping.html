@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="shopping.css">
+    <link rel="stylesheet" href="SCSS/shopping.css">
 </head>
+
 <body>
-    <div id = "download">
-        <span id="icon">        
+    <div id="download">
+        <span id="icon">
             <i class="fas fa-home">賣家中心</i>
             <i class="fas fa-download">下載</i>
             <i class="fas fa-shopping-cart">追蹤我們</i>
@@ -16,24 +18,25 @@
     </div>
     <div id="search">
         <span id="shopping">
-          <i class="fas fa-cart-arrow-down">蝦趴購物</i>
-          <input id="input" type="text" value="" placeholder="輸入搜尋文字" />
-          <button>
-            搜尋
-          </button>
+            <i class="fas fa-cart-arrow-down">蝦趴購物</i>
+            <input id="input" type="text" value="" placeholder="輸入搜尋文字" />
+            <button>
+                搜尋
+            </button>
         </span>
     </div>
     <div id="top">
-        <table>
-            <tr>
-                <td rowspan="2"><img src="./Images/645300.png"style="width:100%;height:200%"></img></td>
-                <td><img src="./Images/645300.png" style="width :100%"></img></td>
-            </tr>
-            <tr>
-                <td><img src="./Images/645300.png" style="width :100%"></img></td>
-            </tr>
-        </table>
-        <table id = "mediumtable">
+        <div class='topimg'>
+            <div class='left'>
+                <img src="./Images/645300.png"></img>
+            </div>
+            <div class='right'>
+                <div class='rightimg'><img src="./Images/645300.png"></img></div>
+
+                <div class='rightimg'><img src="./Images/645300.png"></img></div>
+            </div>
+        </div>
+        <table id="mediumtable">
             <tr>
                 <td><img class="circle" src="./Images/5050.png"></img></td>
                 <td><img class="circle" src="./Images/5050.png"></img></td>
@@ -77,14 +80,27 @@
                 <td class="squareimgandtext">$213</td>
             </tr>
             <tr>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:25%">25%</div></td>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:40%">40%</div></td>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:35%">35%</div></td>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:83%">83%</div></td>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:91%">91%</div></td>
-                <td class="progressingbar"><div class="w3-container w3-green w3-center" style="width:24%">24%</div></td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:25%">25%</div>
+                </td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:40%">40%</div>
+                </td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:35%">35%</div>
+                </td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:83%">83%</div>
+                </td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:91%">91%</div>
+                </td>
+                <td class="progressingbar">
+                    <div class="w3-container w3-green w3-center" style="width:24%">24%</div>
+                </td>
             </tr>
         </table>
-    </div>      
+    </div>
 </body>
+
 </html>

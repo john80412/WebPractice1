@@ -1,0 +1,106 @@
+@import "_normalize";
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+#download {
+    background: rgb(255, 0, 85);
+
+    #icon {
+        color: whitesmoke;
+    }
+}
+
+#search {
+    background-color: orangered;
+    width: 100%;
+    height: 150px;
+
+    #shopping {
+        font-size: 40px;
+        color: whitesmoke;
+        position: relative;
+        top: 30px;
+        left: 150px;
+
+        #input {
+            height: 30px;
+            width: 250px;
+            font-size: 15px;
+        }
+
+        button {
+            height: 30px;
+            font-size: 15px;
+        }
+    }
+}
+
+#top {
+    background: whitesmoke;
+    margin-left: 140px;
+    margin-right: 140px;
+    margin-top: 20px;
+
+    .topimg {
+        display: flex;
+
+        .left {
+            display: flex;
+            flex-grow: 1;
+            border-right: 2px whitesmoke solid;
+            border-bottom: 6px whitesmoke solid;
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
+            .rightimg {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+
+                img {
+                    border-bottom: 6px whitesmoke solid;
+                }
+            }
+        }
+    }
+
+    #mediumtable td {
+        width: 200px;
+        text-align: center;
+
+        .circle {
+            border-radius: 50%;
+        }
+    }
+}
+
+#bottom {
+    background: whitesmoke;
+    margin-left: 140px;
+    margin-right: 140px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .squareimgandtext {
+        width: 300px;
+        text-align: center;
+    }
+
+    .progressingbar {
+        width: 300px;
+        text-align: center;
+        padding-left: 25px;
+        padding-right: 25px;
+        background-clip: content-box;
+        background-color: springgreen;
+    }
+}

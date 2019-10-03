@@ -1,0 +1,48 @@
+@import "_normalize";
+@mixin BorderStyle ($width,$color,$style){
+    border: $width $color $style
+}
+bordradius
+{
+    border-radius: 5px 10px 15px 20px;
+}
+#p1
+{
+    font-size: 20px;
+    line-height: 1.8em;
+}
+#item1 li
+{
+    float: left;
+    margin-left: 40px; 
+}
+#div1
+{
+    @include BorderStyle(1px,red ,solid );  
+}
+#div2
+{
+    @include BorderStyle(3px,blue ,dotted );  
+    border-left: medium dashed green;
+}
+#div3
+{
+    @include BorderStyle(1px,red ,solid );
+    @extend bordradius;
+}
+#div4
+{
+    @include BorderStyle(3px,blue ,dotted );
+    @extend bordradius;
+    border-left: medium dashed green;
+}
+div > img 
+{
+    float: right;
+    border-radius: 5px;
+    height: 100px;
+}
+#div5
+{
+    overflow: scroll;
+}
