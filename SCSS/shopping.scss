@@ -52,7 +52,7 @@
         }
         .left {
             display: flex;
-            flex-grow: 1;
+            flex: 1;
             border-right: 6px whitesmoke solid;
             border-bottom: 6px whitesmoke solid;
         }
@@ -60,12 +60,12 @@
         .right {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            flex: 1;
 
             .rightimg {
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
+                flex: 1;
 
                 img {
                     border-bottom: 6px whitesmoke solid;
