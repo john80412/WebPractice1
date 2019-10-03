@@ -346,6 +346,10 @@ template {
   box-sizing: border-box;
 }
 
+img {
+  width: 100%;
+}
+
 #download {
   background: #ff0055;
 }
@@ -381,19 +385,15 @@ template {
 
 #top {
   background: whitesmoke;
-  margin-left: 140px;
-  margin-right: 140px;
-  margin-top: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
 }
 
 #top .topimg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-#top .topimg img {
-  width: 100%;
 }
 
 #top .topimg .left {
@@ -444,14 +444,20 @@ template {
 
 #top #mediumtable td .circle {
   border-radius: 50%;
+  width: 50%;
 }
 
 #bottom {
   background: whitesmoke;
-  margin-left: 140px;
-  margin-right: 140px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+#bottom img {
+  width: 80%;
+  margin-top: 10%;
 }
 
 #bottom .squareimgandtext {
@@ -461,10 +467,13 @@ template {
 
 #bottom .progressingbar {
   width: 300px;
-  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-left: 25px;
   padding-right: 25px;
   background-clip: content-box;
   background-color: springgreen;
+  padding-bottom: 25px;
 }
 /*# sourceMappingURL=shopping.css.map */
