@@ -392,6 +392,10 @@ template {
   display: flex;
 }
 
+#top .topimg img {
+  width: 100%;
+}
+
 #top .topimg .left {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -399,7 +403,7 @@ template {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  border-right: 2px whitesmoke solid;
+  border-right: 6px whitesmoke solid;
   border-bottom: 6px whitesmoke solid;
 }
 
