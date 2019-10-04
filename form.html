@@ -3,6 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
     <script>
         //getElementById(抓取頁面上的元素)
         function getElement(name) {
@@ -35,52 +41,63 @@
     <form id='form1'
         action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
         method="POST">
-        <fieldset style="border-radius: 10px">
-            <legend>個人資料--必填</legend>
-            <label for="name">姓名:</label>
-            <input type="text" placeholder="請輸入姓名" value="" id="getname" name="getname">
-            <br>
-            <label for="password">密碼:</label>
-            <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword">
-            <br>
-            <label for="gender">性別:</label>
-            <input type="radio" name="getgender" id="male">男性
-            <input type="radio" name="getgender" id="female">女性
-        </fieldset>
-        <br>
-        <fieldset style="border-radius: 10px">
-            <legend>個人資料--興趣</legend>
-            <label for="hobby">興趣:</label>
-            <input type="checkbox" name="gethobby" id="music"">音樂
-            <input type=" checkbox" name="gethobby" id="sport">運動
-            <input type="checkbox" name="gethobby" id="read">閱讀
-            <input type="checkbox" name="gethobby" id="movie">電影
-            <br>
-            <label for="pro">專長:</label>
-            <textarea name="context" id="context" cols="30" rows="10" placeholder="請輸入專長"></textarea>
-        </fieldset>
-        <br>
-        <fieldset style="border-radius: 10px">
-            <legend>個人資料--地址</legend>
-            <label for="postalcode">郵遞區號:</label>
-            <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號">
-            <br>
-            <label for="city">縣市</label>
-            <select name="getcity" id="getcity">
-                <option value="taipei">台北</option>
-                <option value="tainan">台南</option>
-                <option value="taichung">台中</option>
-            </select>
-            <br>
-            <label for="address">其他地址</label>
-            <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址">
-        </fieldset>
-        <br>
-        <input type="checkbox" name="MustCheck" id="MustCheck">同意你隨便用個資
-        <br>
-        <br>
-        <button type="submit">送件</button>
-        <input type="reset" value="清除">
+        <div style="display: flex;flex-wrap: wrap">
+            <div class="card" style="border-radius: 10px;width: 40% ;margin:1%">
+                <div class="card-header bg-primary text-white">
+                    <legend style="margin-bottom: 0px">個人資料--必填</legend>
+                </div>
+                <div class="card-body">
+                    <label for="name" class="">姓名:</label>
+                    <input type="text" placeholder="請輸入姓名" value="" id="getname" name="getname" class="form-control">
+                    <br>
+                    <label for="password" class="">密碼:</label>
+                    <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword" class="form-control">
+                    <br>
+                    <label for="gender">性別:</label>
+                    <input type="radio" name="getgender" id="male">男性
+                    <input type="radio" name="getgender" id="female">女性
+                </div>
+            </div>
+            <div class="card" style="border-radius: 10px;display: flex;width: 40%;margin:1%">
+                <div class="card-header bg-primary text-white">
+                    <legend style="margin-bottom: 0px">個人資料--興趣</legend>
+                </div>
+                <div class="card-body">
+
+                    <label for="hobby">興趣:</label>
+                    <input type="checkbox" name="gethobby" id="music">音樂
+                    <input type="checkbox" name="gethobby" id="sport">運動
+                    <input type="checkbox" name="gethobby" id="read">閱讀
+                    <input type="checkbox" name="gethobby" id="movie">電影
+                    <br>
+                    <label for="pro">專長:</label><br>
+                    <textarea name="context" id="context" cols="30" rows="10" placeholder="請輸入專長" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="card" style="border-radius: 10px;display: flex;width: 40%;margin:1%">
+                <div class="card-header bg-primary text-white">
+                    <legend style="margin-bottom: 0px">個人資料--地址</legend>
+                </div>
+                <div class="card-body">
+                    <label for="postalcode">郵遞區號:</label>
+                    <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號" class="form-control">
+                    <br>
+                    <label for="city">縣市</label>
+                    <select name="getcity" id="getcity" class="form-control" style="width: auto">
+                        <option value="taipei">台北</option>
+                        <option value="tainan">台南</option>
+                        <option value="taichung">台中</option>
+                    </select>
+                    <br>
+                    <label for="address">其他地址</label>
+                    <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit" style="margin: 1%">送件</button>
+            <button class="btn btn-primary" type="reset" style="margin:1%">清除</button>
+        </div>
     </form>
 </body>
 
