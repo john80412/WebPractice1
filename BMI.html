@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function GetElement(name) {
+            return document.getElementById(name)
+        }
+        function Calculate() {
+            let h = GetElement('height').value
+            let w = GetElement('weight').value
+            let r = w/Math.pow(h/100,2)
+            GetElement('result').innerText='結果:BMI:'+r
+        }
+    </script>
+</head>
+<body>
+    <div>
+        身高
+        <input type="text" name="" id="height">
+        體重
+        <input type="text" name="" id="weight">
+    </div>
+    <div>
+        <span id="result">結果</span>
+    </div>
+    <button type="button" onclick="Calculate()">
+        計算
+    </button>
+</body>
+</html>

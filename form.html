@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <script>
+        //getElementById(抓取頁面上的元素)
+        function getElement(name) {
+            return document.getElementById(name);
+        }
+
+        //判斷是否可以送件
+        function Button_Submit() {
+            //抓取頁面上的checkboc1，取得是否checked
+            var isChecked = getElement('MustCheck').checked;
+            //如果是，就return true
+            if (isChecked) return true;
+            //否則就... 
+            alert('必須勾選同意!');
+            return false;
+        }
+
+        //當網頁載入完成後執行
+        window.onload = function () {
+            //hook event(在form1被submit時...)
+            getElement('form1').onsubmit = function () {
+                //呼叫 Button_Submit()
+                return Button_Submit();
+            };
+        };
+    </script>
 </head>
+
 <body>
-    <form 
-    id = 'form'
-    action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
-    method="POST">
+    <form id='form1'
+        action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
+        method="POST">
         <fieldset style="border-radius: 10px">
             <legend>個人資料--必填</legend>
             <label for="name">姓名:</label>
@@ -25,7 +52,7 @@
             <legend>個人資料--興趣</legend>
             <label for="hobby">興趣:</label>
             <input type="checkbox" name="gethobby" id="music"">音樂
-            <input type="checkbox" name="gethobby" id="sport">運動
+            <input type=" checkbox" name="gethobby" id="sport">運動
             <input type="checkbox" name="gethobby" id="read">閱讀
             <input type="checkbox" name="gethobby" id="movie">電影
             <br>
@@ -49,11 +76,12 @@
             <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址">
         </fieldset>
         <br>
-        <input type="checkbox" name="mustcheck" id="mustcheck" required="required">同意你隨便用個資
+        <input type="checkbox" name="MustCheck" id="MustCheck">同意你隨便用個資
         <br>
         <br>
         <button type="submit">送件</button>
         <input type="reset" value="清除">
     </form>
 </body>
+
 </html>
