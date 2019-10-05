@@ -447,6 +447,12 @@ header nav {
   padding: .75rem 1.25rem;
 }
 
+.card {
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-bottom: 4%;
+}
+
 .card .card-body {
   font-size: 10px;
 }
