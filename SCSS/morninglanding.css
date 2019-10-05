@@ -463,6 +463,15 @@ header nav {
   color: black;
 }
 
+.card:hover {
+  -webkit-box-shadow: 0 2px 12px 2px #99a6b14a;
+          box-shadow: 0 2px 12px 2px #99a6b14a;
+}
+
+.feature-content {
+  margin-top: 10%;
+}
+
 .story {
   width: 90%;
   margin: 0 auto;
