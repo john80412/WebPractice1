@@ -522,4 +522,8 @@ footer .navbar-brand {
 footer .nav-item a:hover {
   color: #cfcfcf !important;
 }
+
+img {
+  width: 50%;
+}
 /*# sourceMappingURL=morninglanding.css.map */
