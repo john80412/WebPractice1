@@ -1,0 +1,179 @@
+@import "_normalize";
+
+.container {
+    margin: 0 auto;
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+header {
+
+    .navbar-nav {
+        font-size: 18px;
+
+        a {
+            color: #838383;
+        }
+
+        a:hover {
+            color: #000000;
+        }
+    }
+}
+
+.banner-text {
+    text-align: center;
+
+    h2 {
+        font-size: 56px;
+    }
+
+    h4 {
+        font-size: 26px;
+        color: #9e9e9e;
+        margin-top: 5%;
+    }
+
+    a {
+        background-color: #a06dfd;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    & {
+        margin-top: 15%;
+    }
+
+    button {
+        margin-top: 2%;
+        color: white;
+        background-color: #a06dfd;
+        border-color: #a06dfd;
+    }
+}
+
+.feature-content {
+    text-align: center;
+    margin: 40px 0;
+    color: #373642;
+
+    h3 {
+        font-size: 36px;
+
+    }
+}
+
+
+.item {
+    &>div {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &>div:hover {
+        box-shadow: 0 2px 12px 2px #99a6b14a;
+    }
+
+    &>div {
+        border: 1px solid #dfdfdf;
+    }
+
+    .item-body {
+        padding: 1.23rem;
+        flex: 1 1 auto;
+
+        h4 {
+            margin: 8px 0;
+            font-size: 18px;
+            line-height: 1.2;
+            color: #7d8b9a;
+        }
+    }
+
+    .item-footer {
+        border-top: 1px solid #dfdfdf;
+        padding: .75rem 1.25rem;
+    }
+}
+
+.card {
+    .card-body {
+        font-size: 10px;
+    }
+
+    h4 {
+        color: #7d8b9a;
+    }
+
+    .card-footer {
+        background-color: white;
+    }
+
+    a {
+        color: black;
+    }
+}
+
+.story {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #677bff;
+}
+
+.story-area {
+    margin-top: 5%;
+    color: #ffffff;
+    padding: 110px 0;
+}
+
+.story-img {
+    text-align: center;
+}
+
+.story-text {
+    margin-top: 5%;
+}
+
+.signup-content {
+    margin-top: 5%;
+    text-align: center;
+
+    nav {
+        justify-content: center;
+    }
+
+    .form-inline {
+        width: 60%;
+
+        .input-group {
+            width: 100%;
+        }
+    }
+
+    button {
+        width: 60%;
+    }
+}
+
+footer {
+    margin-top: 5%;
+
+    .navbar-brand,
+    .navbar-nav {
+        height: 80px;
+        padding-top: 3%;
+    }
+
+    .navbar-brand {
+        padding-left: 2%;
+    }
+
+    .nav-item a:hover {
+        color: #cfcfcf !important;
+    }
+}
