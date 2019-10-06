@@ -20,30 +20,30 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <script>
-      //getElementById(抓取頁面上的元素)
-      function getElement(name) {
-          return document.getElementById(name);
-      }
+    //getElementById(抓取頁面上的元素)
+    function getElement(name) {
+      return document.getElementById(name);
+    }
 
-      //判斷是否可以送件
-      function Button_Submit() {
-          //抓取頁面上的checkboc1，取得是否checked
-          var isChecked = getElement('MustCheck').checked;
-          //如果是，就return true
-          if (isChecked) return true;
-          //否則就... 
-          alert('必須勾選同意!');
-          return false;
-      }
+    //判斷是否可以送件
+    function Button_Submit() {
+      //抓取頁面上的checkboc1，取得是否checked
+      var isChecked = getElement('MustCheck').checked;
+      //如果是，就return true
+      if (isChecked) return true;
+      //否則就... 
+      alert('必須勾選同意!');
+      return false;
+    }
 
-      //當網頁載入完成後執行
-      window.onload = function () {
-          //hook event(在form1被submit時...)
-          getElement('form1').onsubmit = function () {
-              //呼叫 Button_Submit()
-              return Button_Submit();
-          };
+    //當網頁載入完成後執行
+    window.onload = function () {
+      //hook event(在form1被submit時...)
+      getElement('form1').onsubmit = function () {
+        //呼叫 Button_Submit()
+        return Button_Submit();
       };
+    };
   </script>
 
 </head>
@@ -375,76 +375,78 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                  class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-            </div>
-                <form id='form1'
-        action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
-        method="POST">
-        <div class="row">
-            <div class="card col-md-5" style="border-radius: 10px;padding: 0;margin-left: 5%;margin-top: 5%;margin-right: 2%">
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          </div>
+          <form id='form1'
+            action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
+            method="POST">
+            <div class="row">
+              <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2%;margin-bottom: 1%">
                 <div class="card-header bg-primary text-white">
-                    <legend style="margin-bottom: 0px">個人資料--必填</legend>
+                  <legend style="margin-bottom: 0px">個人資料--必填</legend>
                 </div>
                 <div class="card-body">
-                    <label for="name" class="">姓名:</label>
-                    <input type="text" placeholder="請輸入姓名" value="" id="getname" name="getname" class="form-control">
-                    <br>
-                    <label for="password" class="">密碼:</label>
-                    <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword" class="form-control">
-                    <br>
-                    <label for="gender">性別:</label>
-                    <input type="radio" name="getgender" id="male">男性
-                    <input type="radio" name="getgender" id="female">女性
+                  <label for="name" class="">姓名:</label>
+                  <input type="text" placeholder="請輸入姓名" value="" id="getname" name="getname" class="form-control">
+                  <label for="password" class="">密碼:</label>
+                  <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword"
+                    class="form-control">
+                  <label for="gender">性別:</label>
+                  <input type="radio" name="getgender" id="male"><label for="male">男性</label>
+                  <input type="radio" name="getgender" id="female"><label for="female">女性</label>
                 </div>
-            </div>
-            <div class="card col-md-5" style="border-radius: 10px;padding: 0;margin-left: 5%;margin-top: 5%;margin-right: 2%">
+              </div>
+              <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2%;margin-bottom: 1%">
                 <div class="card-header bg-primary text-white">
-                    <legend style="margin-bottom: 0px">個人資料--興趣</legend>
+                  <legend style="margin-bottom: 0px">個人資料--興趣</legend>
                 </div>
                 <div class="card-body">
 
-                    <label for="hobby">興趣:</label>
-                    <input type="checkbox" name="gethobby" id="music">音樂
-                    <input type="checkbox" name="gethobby" id="sport">運動
-                    <input type="checkbox" name="gethobby" id="read">閱讀
-                    <input type="checkbox" name="gethobby" id="movie">電影
-                    <br>
-                    <label for="pro">專長:</label><br>
-                    <textarea name="context" id="context" cols="30" rows="10" placeholder="請輸入專長" class="form-control"></textarea>
+                  <label for="hobby">興趣:</label>
+                  <input type="checkbox" name="gethobby" id="music"><label for="music">音樂</label>
+                  <input type="checkbox" name="gethobby" id="sport"><label for="sport">運動</label>
+                  <input type="checkbox" name="gethobby" id="read"><label for="read">閱讀</label>
+                  <input type="checkbox" name="gethobby" id="movie"><label for="movie">電影</label>
+                  <br>
+                  <label for="pro">專長:</label><br>
+                  <textarea name="context" id="context" cols="30" rows="6" placeholder="請輸入專長"
+                    class="form-control"></textarea>
                 </div>
-            </div>
-            <div class="card col-md-5" style="border-radius: 10px;padding: 0;margin-top: 5%;margin-left: 5%;margin-right: 2%  ">
+              </div>
+              <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2% ;margin-bottom: 1% ">
                 <div class="card-header bg-primary text-white">
-                    <legend style="margin-bottom: 0px">個人資料--地址</legend>
+                  <legend style="margin-bottom: 0px">個人資料--地址</legend>
                 </div>
                 <div class="card-body">
-                    <label for="postalcode">郵遞區號:</label>
-                    <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號" class="form-control">
-                    <br>
-                    <label for="city">縣市</label>
-                    <select name="getcity" id="getcity" class="form-control" style="width: auto">
-                        <option value="taipei">台北</option>
-                        <option value="tainan">台南</option>
-                        <option value="taichung">台中</option>
-                    </select>
-                    <br>
-                    <label for="address">其他地址</label>
-                    <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址" class="form-control">
+                  <label for="postalcode">郵遞區號:</label>
+                  <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號" class="form-control">
+                  <label for="city">縣市</label>
+                  <select name="getcity" id="getcity" class="form-control" style="width: auto">
+                    <option value="taipei">台北</option>
+                    <option value="tainan">台南</option>
+                    <option value="taichung">台中</option>
+                  </select>
+                  <label for="address">其他地址</label>
+                  <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址" class="form-control">
                 </div>
+              </div>
             </div>
-        </div>
-        <div>
-            <input type="checkbox" name="MustCheck" id="MustCheck" style="margin-left: 5%">同意洩漏個資
-        </div>
-        <div>
-            <button class="btn btn-primary" type="submit" style="margin-left: 5%">送件</button>
-            <button class="btn btn-primary" type="reset">清除</button>
-        </div>
-    </form>
+            <div>
+              <input type="checkbox" name="MustCheck" id="MustCheck" style="margin-left: 2%"><label
+                for="MustCheck">同意洩漏個資</label>
+            </div>
+            <div>
+              <button class="btn btn-primary" type="submit" style="margin-left: 2%">送件</button>
+              <button class="btn btn-primary" type="reset">清除</button>
+            </div>
+          </form>
 
         </div>
         <!-- /.container-fluid -->

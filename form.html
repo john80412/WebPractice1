@@ -38,68 +38,71 @@
 </head>
 
 <body>
-        <form id='form1'
+    <form id='form1'
         action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=john804122@gmail.com&redirect=http://www.google.com"
         method="POST">
         <div class="row">
-            <div class="card col-md-5" style="border-radius: 10px;padding: 0;margin-top: 2%;margin-left: 2%">
+            <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2%;margin-bottom: 1%">
                 <div class="card-header bg-primary text-white">
                     <legend style="margin-bottom: 0px">個人資料--必填</legend>
                 </div>
                 <div class="card-body">
                     <label for="name" class="">姓名:</label>
                     <input type="text" placeholder="請輸入姓名" value="" id="getname" name="getname" class="form-control">
-                    <br>
                     <label for="password" class="">密碼:</label>
-                    <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword" class="form-control">
-                    <br>
+                    <input type="password" placeholder="請輸入密碼" value="" id="getpassword" name="getpassword"
+                        class="form-control">
                     <label for="gender">性別:</label>
-                    <input type="radio" name="getgender" id="male">男性
-                    <input type="radio" name="getgender" id="female">女性
+                    <input type="radio" name="getgender" id="male"><label for="male">男性</label>
+                    <input type="radio" name="getgender" id="female"><label for="female">女性</label>
                 </div>
             </div>
-            <div class="card offset-1 col-md-5" style="border-radius: 10px;padding: 0;margin-top: 2%;margin-left: 2%">
+            <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2%;margin-bottom: 1%">
                 <div class="card-header bg-primary text-white">
                     <legend style="margin-bottom: 0px">個人資料--興趣</legend>
                 </div>
                 <div class="card-body">
 
                     <label for="hobby">興趣:</label>
-                    <input type="checkbox" name="gethobby" id="music">音樂
-                    <input type="checkbox" name="gethobby" id="sport">運動
-                    <input type="checkbox" name="gethobby" id="read">閱讀
-                    <input type="checkbox" name="gethobby" id="movie">電影
+                    <input type="checkbox" name="gethobby" id="music"><label for="music">音樂</label>
+                    <input type="checkbox" name="gethobby" id="sport"><label for="sport">運動</label>
+                    <input type="checkbox" name="gethobby" id="read"><label for="read">閱讀</label>
+                    <input type="checkbox" name="gethobby" id="movie"><label for="movie">電影</label>
                     <br>
                     <label for="pro">專長:</label><br>
-                    <textarea name="context" id="context" cols="30" rows="10" placeholder="請輸入專長" class="form-control"></textarea>
+                    <textarea name="context" id="context" cols="30" rows="6" placeholder="請輸入專長"
+                        class="form-control"></textarea>
                 </div>
             </div>
-            <div class="card col-md-5" style="border-radius: 10px;padding: 0;margin-top: 2%;margin-left: 2%">
+            <div class="card col-md-5"
+                style="border-radius: 10px;padding: 0;margin-left: 2%;margin-right: 2% ;margin-bottom: 1% ">
                 <div class="card-header bg-primary text-white">
                     <legend style="margin-bottom: 0px">個人資料--地址</legend>
                 </div>
                 <div class="card-body">
                     <label for="postalcode">郵遞區號:</label>
-                    <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號" class="form-control">
-                    <br>
+                    <input type="text" name="getpostalcode" id="getpostalcode" placeholder="請輸入郵遞區號"
+                        class="form-control">
                     <label for="city">縣市</label>
                     <select name="getcity" id="getcity" class="form-control" style="width: auto">
                         <option value="taipei">台北</option>
                         <option value="tainan">台南</option>
                         <option value="taichung">台中</option>
                     </select>
-                    <br>
                     <label for="address">其他地址</label>
                     <input type="text" name="getaddress" id="getaddress" placeholder="請輸入地址" class="form-control">
                 </div>
             </div>
         </div>
         <div>
-            <input type="checkbox" name="MustCheck" id="MustCheck" style="margin: 1%;margin-left: 2%">同意洩漏個資
+            <input type="checkbox" name="MustCheck" id="MustCheck" style="margin-left: 2%"><label
+                for="MustCheck">同意洩漏個資</label>
         </div>
         <div>
-            <button class="btn btn-primary" type="submit" style="margin: 1%;margin-left: 2%">送件</button>
-            <button class="btn btn-primary" type="reset" style="margin:1%;margin-left: 2%">清除</button>
+            <button class="btn btn-primary" type="submit" style="margin-left: 2%">送件</button>
+            <button class="btn btn-primary" type="reset">清除</button>
         </div>
     </form>
 </body>
