@@ -70,40 +70,6 @@ header {
     }
 }
 
-
-.item {
-    &>div {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    &>div:hover {
-        box-shadow: 0 2px 12px 2px #99a6b14a;
-    }
-
-    &>div {
-        border: 1px solid #dfdfdf;
-    }
-
-    .item-body {
-        padding: 1.23rem;
-        flex: 1 1 auto;
-
-        h4 {
-            margin: 8px 0;
-            font-size: 18px;
-            line-height: 1.2;
-            color: #7d8b9a;
-        }
-    }
-
-    .item-footer {
-        border-top: 1px solid #dfdfdf;
-        padding: .75rem 1.25rem;
-    }
-}
-
 .card {
     margin-left: 4%;
     margin-right: 4%;
@@ -165,7 +131,6 @@ header {
             width: 100%;
         }
     }
-
     button {
         width: 60%;
     }

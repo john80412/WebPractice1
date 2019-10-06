@@ -408,45 +408,6 @@ header nav {
   font-size: 36px;
 }
 
-.item > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100%;
-}
-
-.item > div:hover {
-  -webkit-box-shadow: 0 2px 12px 2px #99a6b14a;
-          box-shadow: 0 2px 12px 2px #99a6b14a;
-}
-
-.item > div {
-  border: 1px solid #dfdfdf;
-}
-
-.item .item-body {
-  padding: 1.23rem;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-}
-
-.item .item-body h4 {
-  margin: 8px 0;
-  font-size: 18px;
-  line-height: 1.2;
-  color: #7d8b9a;
-}
-
-.item .item-footer {
-  border-top: 1px solid #dfdfdf;
-  padding: .75rem 1.25rem;
-}
-
 .card {
   margin-left: 4%;
   margin-right: 4%;
