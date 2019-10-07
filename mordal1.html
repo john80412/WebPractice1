@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function Checked() {
+            if ($('#ch').prop('checked')) {
+                return true;
+            }
+            return false;
+        }
+        function Message() {
+            if (Checked()) {
+                $('#modal-body').text('登入成功');
+            }
+            else{
+                $('#modal-body').text('請勾選同意條款');
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="offset-3 col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    登入系統
+                </div>
+                <div class="card-body">
+                    <div style="text-align: end">
+                        <a href="register.html" class="btn btn-danger " style="margin: 0 auto">註冊新帳號</a>
+                    </div>
+                    <p>帳號</p>
+                    <input type="text" name="" id="" class="form-control">
+                    <p>密碼</p>
+                    <input type="password" name="" id="" class="form-control">
+                    <input type="checkbox" name="ch" id="ch" checked="false"><label>同意使用者條款</label><br>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                        style="width: 100%" onclick="Message()">
+                        登入
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">訊息</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" id="modal-body">
+                        請勾選同意條款
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
