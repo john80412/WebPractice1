@@ -9,11 +9,9 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script>
-        window.onload = function () {
-            $('.btn_test').click(function () {
-                Message()
-            })
-        }
+        $(function(){
+            $('.btn_test').click(function () { Message() })
+        })
 
         function Checked() {
             if ($('#ch').prop('checked')) {
