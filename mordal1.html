@@ -9,25 +9,26 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script>
-        $(function(){
-            $('.btn_test').click(function () { Message() })
+        $(() => {
+            $('.btn_test').click(Message)
         })
+
         function Checked() {
             if ($('#ch').prop('checked')) {
                 return true;
             }
             return false;
         }
+
         function Message() {
-            
+
             console.log('1')
             if (Checked()) {
                 $('#modal-body').text('登入成功');
-            }
-            else{
+            } else {
                 $('#modal-body').text('請勾選同意條款');
             }
-        }       
+        }
     </script>
 </head>
 
