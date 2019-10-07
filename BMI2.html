@@ -18,7 +18,20 @@
             $('#result').text('BMI:' + r)
         }
         $(() => {
-            $('button').click(Calculate);
+            $('#Button1').click(Calculate);
+        })
+        $(() => {
+            $('#CheckAll').click(() => {
+                if ($('#CheckAll').prop('checked')) {
+                    $('input[type="checkbox"]').prop('checked',true)
+                    }
+                else{
+                    $('input[type="checkbox"]').prop('checked',false)
+                    }
+                
+                }
+            )
+
         })
     </script>
 </head>
@@ -30,11 +43,26 @@
             <label>身高:</label>
             <input class="form-control" id="textHeight" placeholder="0" />
             <label>體重:</label>
-            <input class="form-control" id="textWeight" placeholder ="0" />
+            <input class="form-control" id="textWeight" placeholder="0" />
             <br />
             <button class="btn btn-primary" id="Button1">計算</button>
             <br />
             <span id="result"></span>
+        </div>
+    </div>
+    <div class="row" style="margin:10px">
+        <div class="col-12">
+            <input id="CheckAll" type="checkbox" />勾選全部
+            <div id="CheckBoxGroup">
+                <input type="checkbox"/>項目1
+                <input type="checkbox"/>項目2
+                <input type="checkbox"/>項目3
+                <input type="checkbox"/>項目4
+                <input type="checkbox"/>項目5
+                <input type="checkbox"/>項目6
+                <input type="checkbox"/>項目7
+                <input type="checkbox"/>項目8
+            </div>
         </div>
     </div>
 </body>
