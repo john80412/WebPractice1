@@ -1,0 +1,22 @@
+@import "_normalize";
+
+a.card:hover {
+    text-decoration: none;
+}
+
+@media screen and (max-width:560px) {
+    #ad-carousel h1 {
+        font-size: 2rem;
+    }
+
+    #ad-carousel .btn {
+        margin-top: 0 !important;
+    }
+    .news-list{
+        flex-direction: column;
+    }
+}
+.news-list li::before{
+    content: "．";
+    color: white;
+}
