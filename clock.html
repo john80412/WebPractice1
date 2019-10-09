@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <style>
+        @font-face {
+            font-family: Digital;
+            src: url('fonts/digital-7.ttf');
+        }
+
+        .calculator {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .calculator:hover {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        // 對Date的擴充套件，將 Date 轉化為指定格式的String
+        // 月(M)、日(d)、小時(h)、分(m)、秒(s)、季度(q) 可以用 1-2 個佔位符，
+        // 年(y)可以用 1-4 個佔位符，毫秒(S)只能用 1 個佔位符(是 1-3 位的數字)
+        // 例子：
+        // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+        // (new Date()).Format("yyyy-M-d h:m:s.S")   ==> 2006-7-2 8:9:4.18
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                S: this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(
+                    RegExp.$1,
+                    (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+                );
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt))
+                    fmt = fmt.replace(
+                        RegExp.$1,
+                        RegExp.$1.length == 1 ?
+                        o[k] :
+                        ("00" + o[k]).substr(("" + o[k]).length)
+                    );
+            return fmt;
+        };
+        // var pause = false
+        // function Start() {
+        //     pause = false
+        //     Run()
+        // }
+        // function Run() {
+        //     let dt = new Date()
+        //     let d = dt.Format("yyyy/MM/dd hh:mm:ss")
+        //     Display(d)
+        //     if (pause) {
+        //         return
+        //     }
+        //     setTimeout(Run, 1000)
+        // }
+        // function End() {
+        //     pause = true
+        // }        
+        // function Display(text) {
+        //     $('.date').text(`${text}`);
+        // }
+        $(function () {
+            $('.start').click(function () {
+                Start();
+            });
+            $('.end').click(function () {
+                End();
+            });
+            $('.calculate').click(function () {
+                textArea();
+            });
+            $('.calculator').click(function () {
+                let valuer = $(this).val()
+                textBox(valuer);
+            });
+            $('.startcount').click(function () {
+                StartCount()
+            });
+            $('.endcount').click(function () {
+                EndCount()
+            });
+        })
+        var flag = null
+        var text2 = ""
+        var time = -1
+
+        function Start() {
+            let dateFirst = new Date().Format("yyyy/MM/dd hh:mm:ss")
+            $('.date').text(`${dateFirst}`);
+            flag = setInterval(() => {
+                let date = new Date().Format("yyyy/MM/dd hh:mm:ss")
+                $('.date').text(`${date}`);
+            }, 1000);
+        }
+
+        function End() {
+            clearInterval(flag)
+        }
+
+        function textArea() {
+            let text = $('.input1').val()
+            let result = eval(text)
+            $('.result1').text(`${result}`)
+
+        }
+
+        function textBox(valuer) {
+            if (valuer == 'AC') {
+                text2 = ""
+            } else if (valuer == '=') {
+                let result = eval(text2)
+                alert(`結果為${result}`)
+                text2 = ""
+            } else {
+                text2 += valuer
+            }
+            $('.gettext').val(`${text2}`)
+        }
+
+        function StartCount() {
+            if (time == -1) {
+                time = $(".second").val();
+
+            }
+            $('.time').text(`${time}`);
+            flag = setInterval(() => {
+                if (time == 0) {
+                    alert('時間倒數完')
+                    clearInterval(flag)
+                    time = -1
+                    $('.second').val("")
+                    return
+                }
+                time--
+                $('.time').text(`${time}`);
+            }, 1000);
+        }
+
+        function EndCount() {
+            clearInterval(flag)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1 class="date" style="max-width: 10px;margin-left:45%; font-family: Digital">Date</h1>
+            <input class="start" type="button" value="開始" style="margin: 0 auto">
+            <input class="end" type="button" value="暫停" style="margin: 0 auto">
+        </div>
+        <div class="text-center pt-5">
+            <h1>運算式:</h1>
+            <textarea class="input1" name="" id="" cols="30" rows="10"></textarea>
+            <br>
+            <input class="btn btn-primary calculate" type="button" value="運算">
+            <br>
+            <h2 class="result1">結果</h2>
+        </div>
+        <div class="text-center pt-5">
+            <div>
+                <input class="gettext" type="text" name="" id="">
+            </div>
+            <div>
+                <input class="calculator btn" type="button" value="AC">
+                <input class="calculator btn" type="button" value="(">
+                <input class="calculator btn" type="button" value=")">
+                <input class="calculator btn" type="button" value="/">
+            </div>
+            <div>
+                <input class="calculator btn" type="button" value="7">
+                <input class="calculator btn" type="button" value="8">
+                <input class="calculator btn" type="button" value="9">
+                <input class="calculator btn" type="button" value="*">
+            </div>
+            <div>
+                <input class="calculator btn" type="button" value="4">
+                <input class="calculator btn" type="button" value="5">
+                <input class="calculator btn" type="button" value="6">
+                <input class="calculator btn" type="button" value="-">
+            </div>
+            <div>
+                <input class="calculator btn" type="button" value="1">
+                <input class="calculator btn" type="button" value="2">
+                <input class="calculator btn" type="button" value="3">
+                <input class="calculator btn" type="button" value="+">
+            </div>
+            <div>
+                <input class="calculator btn" type="button" value="0">
+                <input class="calculator btn" type="button" value=".">
+                <input class="calculator btn" type="button" value="=">
+            </div>
+        </div>
+        <div class="text-center pt-5">
+            <h1>倒數計時器</h1>
+            <input class="second" type="text" name="" id="" placeholder="請輸入秒數">
+            <br>
+            <h1 class="time" style="max-width: 10px;margin-left:45%; font-family: Digital">TIME</h1>
+            <input class="btn btn-primary startcount" type="button" value="開始">
+            <input class="btn btn-primary endcount" type="button" value="暫停">
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</body>
+
+</html>

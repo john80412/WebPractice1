@@ -353,11 +353,17 @@ a.card:hover {
   #ad-carousel .btn {
     margin-top: 0 !important;
   }
-  .news-list {
+  .news {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+  .news-list li {
+    margin-right: 0;
   }
 }
 

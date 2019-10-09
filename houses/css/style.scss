@@ -12,8 +12,12 @@ a.card:hover {
     #ad-carousel .btn {
         margin-top: 0 !important;
     }
-    .news-list{
+    .news{
+        display: flex;
         flex-direction: column;
+    }
+    .news-list li{
+        margin-right: 0;
     }
 }
 .news-list li::before{
