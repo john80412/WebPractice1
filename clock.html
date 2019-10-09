@@ -109,7 +109,6 @@
         var text2 = ""
         var time = -1
         var check = -1
-
         function Start() {
             let dateFirst = new Date().Format("yyyy/MM/dd hh:mm:ss")
             $('.date').text(`${dateFirst}`);
@@ -134,13 +133,15 @@
             if (valuer == 'AC') {
                 text2 = ""
             } else if (valuer == '=') {
-                let result = eval(text2)
-                alert(`結果為${result}`)
+                let result2 = eval(text2)
+                $('.gettext').val(`${result2}`)
                 text2 = ""
+                return
             } else {
+                $('.gettext').val(`${valuer}`)
                 text2 += valuer
             }
-            $('.gettext').val(`${text2}`)
+            // $('.gettext').val(`${text2}`)
         }
 
         function StartCount() {
