@@ -4,7 +4,7 @@ a.card:hover {
     text-decoration: none;
 }
 
-@media screen and (max-width:560px) {
+@media screen and (max-width:1024px) {
     #ad-carousel h1 {
         font-size: 2rem;
     }
@@ -13,6 +13,14 @@ a.card:hover {
         margin-top: 0 !important;
     }
     .news{
+        display: flex;
+        flex-direction: column;
+    }
+    .test{
+        display: flex;
+        flex-direction: column;
+    }
+    .news-list{
         display: flex;
         flex-direction: column;
     }
