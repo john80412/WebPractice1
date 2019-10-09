@@ -24,7 +24,9 @@
             font-family: Digital;
             src: url('fonts/digital-7.ttf');
         }
-
+        .calculator{
+            margin: 1px;
+        }
 
         .calculator:hover {
             cursor: pointer;
@@ -175,67 +177,72 @@
         </div>
         <div class="text-center pt-5">
             <h1>運算式:</h1>
-            <textarea class="input1 form-control" name="" id="" cols="30" rows="10" style="width: 30%;margin:0 auto"></textarea>
+            <textarea class="input1 form-control" name="" id="" cols="30" rows="10"
+                style="width: 30%;margin:0 auto"></textarea>
             <br>
             <input class="btn btn-primary calculate" type="button" value="運算">
             <br>
             <h2 class="result1">結果</h2>
         </div>
         <div class="text-center pt-5">
-            <div class="pb-2">
-                <input class="gettext form-control m-auto" style="width: 180px">
-            </div>
-            <div>
-                <input class="calculator btn btn-light rounded-circle" type="button" value="AC" 
-                    style="width:40px;height:40px;">
-                <input class=" calculator btn btn-light rounded-circle" type="button" value="("
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value=")"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="/"
-                    style="width:40px;height:40px;">
-            </div>
-            <div>
-                <input class="calculator btn btn-light rounded-circle" type="button" value="7"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="8"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="9"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="*"
-                    style="width:40px;height:40px;">
-            </div>
-            <div>
-                <input class="calculator btn btn-light rounded-circle" type="button" value="4"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="5"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="6"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="-"
-                    style="width:40px;height:40px;">
-            </div>
-            <div>
-                <input class="calculator btn btn-light rounded-circle" type="button" value="1"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="2"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="3"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="+"
-                    style="width:40px;height:40px;">
-            </div>
-            <div>
-                <input class="calculator btn btn-light rounded-circle" type="button" value="0"
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded-circle" type="button" value="."
-                    style="width:40px;height:40px;">
-                <input class="calculator btn btn-light rounded plus" type="button" value="=" style="width:90px;height:40px;">
+            <div class="p-2 bg-dark d-inline-block">
+                <div class="pb-2">
+                    <input class="gettext form-control m-auto" style="width: 180px">
+                </div>
+                <div>
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="AC"
+                        style="width:40px;height:40px;">
+                    <input class=" calculator btn btn-light rounded-circle" type="button" value="("
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value=")"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="/"
+                        style="width:40px;height:40px;">
+                </div>
+                <div>
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="7"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="8"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="9"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="*"
+                        style="width:40px;height:40px;">
+                </div>
+                <div>
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="4"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="5"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="6"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="-"
+                        style="width:40px;height:40px;">
+                </div>
+                <div>
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="1"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="2"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="3"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="+"
+                        style="width:40px;height:40px;">
+                </div>
+                <div>
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="0"
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded-circle" type="button" value="."
+                        style="width:40px;height:40px;">
+                    <input class="calculator btn btn-light rounded plus" type="button" value="="
+                        style="width:90px;height:40px;">
+                </div>
             </div>
         </div>
         <div class="text-center pt-5">
             <h1>倒數計時器</h1>
-            <input class="second form-control" type="text" name="" id="" placeholder="請輸入秒數" style="width: 20%;margin:0 auto">
+            <input class="second form-control" type="text" name="" id="" placeholder="請輸入秒數"
+                style="width: 20%;margin:0 auto">
             <br>
             <h1 class="time" style="font-family: Digital">TIME</h1>
             <input class="btn btn-primary startcount" type="button" value="開始">
