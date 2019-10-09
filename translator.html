@@ -10,9 +10,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//bootstrap-extension.com/css/4.5.0/bootstrap-extension.min.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
+    <script src="//bootstrap-extension.com/js/4.5.0/bootstrap-extension.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
@@ -24,20 +26,21 @@
         $(() => {
             // source => 需要翻譯的字串
             // valure => 需要翻譯成哪種語言
-            $('.lefttoright').click( () => {
-                let source = $('.textleft').val() 
+            $('.lefttoright').click(() => {
+                let source = $('.textleft').val()
                 let valure = $('.sel').val()
-                trans(source,valure,0)
-                
+                trans(source, valure, 0)
+
             });
-            $('.righttoleft').click( () => { 
+            $('.righttoleft').click(() => {
                 let source = $('.textright').val()
                 let valure = $('.sel').val()
-                trans(source,valure,1)
-                
+                trans(source, valure, 1)
+
             });
         })
-        function trans(source,valure,fl) {
+
+        function trans(source, valure, fl) {
             $.ajax({
                 type: "post", //http verb
                 headers: {
@@ -53,7 +56,8 @@
                 success: function (response) {
                     //呼叫遠端服務後的回傳結果
                     // 判斷按哪顆按鍵(0 => 由左往右翻譯  1 => 由右往左翻譯)
-                    fl == 0 ? $('.textright').val(response[0].translations[valure].text) : $('.textleft').val(response[0].translations[valure].text)
+                    fl == 0 ? $('.textright').val(response[0].translations[valure].text) : $('.textleft')
+                        .val(response[0].translations[valure].text)
                 }
             })
         }
@@ -68,7 +72,7 @@
         </select>
     </div>
     <div class="container-fluid text-center row" style="margin: 0 auto">
-        <div class="card col-4 px-0">
+        <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
                 666
             </div>
@@ -76,15 +80,15 @@
                 <textarea class="textleft form-control" name="" id="" cols="80" rows="10"></textarea>
             </div>
         </div>
-        <div class="col-4 d-flex justify-content-around flex-column">
+        <div class="col-12  col-md-4 d-flex justify-content-around flex-md-column my-5">
             <div>
-                <input class="btn btn-primary w-1 lefttoright" type="button" value="一&gt;">
+                <button class="btn btn-primary w-1 lefttoright rotate-md-l-90" type="button" style="font-size: 50px">⇩</button>
             </div>
             <div>
-                <input class="btn btn-primary righttoleft" type="button" value="&lt;一">
+                <button class="btn btn-primary righttoleft rotate-md-l-90" type="button"  style="font-size: 50px">⇧</button>
             </div>
         </div>
-        <div class="card col-4 px-0">
+        <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
                 777
             </div>
