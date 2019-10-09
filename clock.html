@@ -132,6 +132,7 @@
         function textBox(valuer) {
             if (valuer == 'AC') {
                 text2 = ""
+                $('.gettext').val(`${text2}`)
             } else if (valuer == '=') {
                 let result2 = eval(text2)
                 $('.gettext').val(`${result2}`)
