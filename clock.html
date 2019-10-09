@@ -114,7 +114,7 @@
         var flag = null
         var text2 = ""
         var time = -1
-
+        var check = -1
         function Start() {
             let dateFirst = new Date().Format("yyyy/MM/dd hh:mm:ss")
             $('.date').text(`${dateFirst}`);
@@ -149,9 +149,9 @@
         }
 
         function StartCount() {
-            if (time == -1) {
+            if (time == -1 || check != $(".second").val()) {
                 time = $(".second").val();
-
+                check = $(".second").val();
             }
             $('.time').text(`${time}`);
             flag = setInterval(() => {
