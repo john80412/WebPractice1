@@ -28,13 +28,13 @@
             // valure => 需要翻譯成哪種語言
             $('.lefttoright').click(() => {
                 let source = $('.textleft').val()
-                let valure = $('.sel').val()
+                let valure = $('.sel02').val()
                 trans(source, valure, 0)
 
             });
             $('.righttoleft').click(() => {
                 let source = $('.textright').val()
-                let valure = $('.sel').val()
+                let valure = $('.sel01').val()
                 trans(source, valure, 1)
 
             });
@@ -48,7 +48,7 @@
                     "Ocp-Apim-Subscription-Key": "8d6444ebb12c447d95a5fea1f84cd40c",
                     "Content-Type": "application/json"
                 },
-                url: "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=en&to=ja",
+                url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${valure}`,
                 data: JSON.stringify([{
                     "Text": source
                 }]), //要翻譯的文字
@@ -56,8 +56,8 @@
                 success: function (response) {
                     //呼叫遠端服務後的回傳結果
                     // 判斷按哪顆按鍵(0 => 由左往右翻譯  1 => 由右往左翻譯)
-                    fl == 0 ? $('.textright').val(response[0].translations[valure].text) : $('.textleft')
-                        .val(response[0].translations[valure].text)
+                    fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft')
+                        .val(response[0].translations[0].text)
                 }
             })
         }
@@ -66,15 +66,17 @@
 
 <body>
     <div class="container text-center my-5">
-        <select class="sel">
-            <option value="0">翻譯成英文</option>
-            <option value="1">翻譯成日文</option>
-        </select>
     </div>
     <div class="container-fluid text-center row" style="margin: 0 auto">
         <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
-                666
+                <select class="sel01">
+                    <option value="en">英文</option>
+                    <option value="ja">日文</option>
+                    <option value="fr">法文</option>
+                    <option value="zh-Hant">中文</option>
+                    <option value="de">德文</option>
+                </select>
             </div>
             <div class="card-body">
                 <textarea class="textleft form-control" name="" id="" cols="80" rows="10"></textarea>
@@ -82,15 +84,23 @@
         </div>
         <div class="col-12  col-md-4 d-flex justify-content-around flex-md-column my-5">
             <div class="order-2 order-md-1">
-                <button class="btn btn-primary w-1 lefttoright rotate-md-l-90 order-2 order-md-1" type="button" style="font-size: 50px">⇩</button>
+                <button class="btn btn-primary w-1 lefttoright rotate-md-l-90 order-2 order-md-1" type="button"
+                    style="font-size: 50px">⇩</button>
             </div>
             <div class="order-1 order-md-2">
-                <button class="btn btn-primary righttoleft rotate-md-l-90" type="button"  style="font-size: 50px">⇧</button>
+                <button class="btn btn-primary righttoleft rotate-md-l-90" type="button"
+                    style="font-size: 50px">⇧</button>
             </div>
         </div>
         <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
-                777
+                <select class="sel02">
+                    <option value="en">英文</option>
+                    <option value="ja">日文</option>
+                    <option value="fr">法文</option>
+                    <option value="zh-Hant">中文</option>
+                    <option value="de">德文</option>
+                </select>
             </div>
             <div class="card-body">
                 <textarea class="textright form-control" name="" id="" cols="80" rows="10"></textarea>
