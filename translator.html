@@ -56,8 +56,7 @@
                 success: function (response) {
                     //呼叫遠端服務後的回傳結果
                     // 判斷按哪顆按鍵(0 => 由左往右翻譯  1 => 由右往左翻譯)
-                    fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft')
-                        .val(response[0].translations[0].text)
+                    fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft').val(response[0].translations[0].text)
                 }
             })
         }
