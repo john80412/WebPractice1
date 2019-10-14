@@ -40,6 +40,8 @@
             });
             $('.textright').val(localStorage.getItem('rightdata'))
             $('.textleft').val(localStorage.getItem('leftdata'))
+            $('.sel01').val(localStorage.getItem('leftsel'))
+            $('.sel02').val(localStorage.getItem('rightsel'))
         })
 
         function trans(source, valure, fl) {
@@ -61,6 +63,8 @@
                     fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft').val(response[0].translations[0].text)
                     localStorage.setItem('leftdata',$('.textleft').val())
                     localStorage.setItem('rightdata',$('.textright').val())
+                    localStorage.setItem('leftsel',$('.sel01 option:selected').val())
+                    localStorage.setItem('rightsel',$('.sel02 option:selected').val())
                 }
             })
         }
