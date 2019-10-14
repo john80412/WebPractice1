@@ -40,8 +40,10 @@
             });
             $('.textright').val(localStorage.getItem('rightdata'))
             $('.textleft').val(localStorage.getItem('leftdata'))
-            $('.sel01').val(localStorage.getItem('leftsel'))
-            $('.sel02').val(localStorage.getItem('rightsel'))
+            if (localStorage.getItem('leftsel') != null && localStorage.getItem('rightsel') != null) {
+                $('.sel01').val(localStorage.getItem('leftsel'))
+                $('.sel02').val(localStorage.getItem('rightsel'))
+            }
         })
 
         function trans(source, valure, fl) {
@@ -60,11 +62,12 @@
                 success: function (response) {
                     //呼叫遠端服務後的回傳結果
                     // 判斷按哪顆按鍵(0 => 由左往右翻譯  1 => 由右往左翻譯)
-                    fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft').val(response[0].translations[0].text)
-                    localStorage.setItem('leftdata',$('.textleft').val())
-                    localStorage.setItem('rightdata',$('.textright').val())
-                    localStorage.setItem('leftsel',$('.sel01 option:selected').val())
-                    localStorage.setItem('rightsel',$('.sel02 option:selected').val())
+                    fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft').val(
+                        response[0].translations[0].text)
+                    localStorage.setItem('leftdata', $('.textleft').val())
+                    localStorage.setItem('rightdata', $('.textright').val())
+                    localStorage.setItem('leftsel', $('.sel01 option:selected').val())
+                    localStorage.setItem('rightsel', $('.sel02 option:selected').val())
                 }
             })
         }
@@ -78,7 +81,7 @@
         <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
                 <select class="sel01">
-                    <option value="en" class="active">英文</option>
+                    <option value="en">英文</option>
                     <option value="ja">日文</option>
                     <option value="fr">法文</option>
                     <option value="zh-Hant">中文</option>
@@ -102,7 +105,7 @@
         <div class="card col-12 col-md-4 px-0">
             <div class="card-header bg-primary text-white h1">
                 <select class="sel02">
-                    <option value="en" class="active">英文</option>
+                    <option value="en">英文</option>
                     <option value="ja">日文</option>
                     <option value="fr">法文</option>
                     <option value="zh-Hant">中文</option>
