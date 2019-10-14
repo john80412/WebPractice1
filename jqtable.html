@@ -142,14 +142,13 @@
         }
         // 載入最後一次結果或初始化資料
         function LoadData() {
-            DataTable = $('#Table1').DataTable({
-                data: dat
-            })
             if (localStorage.getItem('TemporaryData') != null) {
                 let str = localStorage.getItem('TemporaryData')
                 dat = JSON.parse(str)
             }
-            RefreshData()
+            DataTable = $('#Table1').DataTable({
+                data: dat
+            })
         }
     </script>
 </head>
