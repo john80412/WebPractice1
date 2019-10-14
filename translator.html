@@ -38,6 +38,8 @@
                 trans(source, valure, 1)
 
             });
+            $('.textright').val(localStorage.getItem('rightdata'))
+            $('.textleft').val(localStorage.getItem('leftdata'))
         })
 
         function trans(source, valure, fl) {
@@ -57,6 +59,8 @@
                     //呼叫遠端服務後的回傳結果
                     // 判斷按哪顆按鍵(0 => 由左往右翻譯  1 => 由右往左翻譯)
                     fl == 0 ? $('.textright').val(response[0].translations[0].text) : $('.textleft').val(response[0].translations[0].text)
+                    localStorage.setItem('leftdata',$('.textleft').val())
+                    localStorage.setItem('rightdata',$('.textright').val())
                 }
             })
         }
