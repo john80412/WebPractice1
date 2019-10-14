@@ -49,23 +49,54 @@
                 RefreshData()
                 ClearInput()
             });
-            $('#ButtonShowImport').click(function (e) { 
-                $('#ButtonImport').attr('disabled',false)
-                $('#field_DataJSON').attr('readonly',false)
+            $('#ButtonShowImport').click(function (e) {
+                $('#ButtonImport').attr('disabled', false)
+                $('#field_DataJSON').attr('readonly', false)
                 $('#ModalDataExport').modal()
                 $('#field_DataJSON').val('')
             });
-            $('#ButtonImport').click(function (e) { 
+            $('#ButtonImport').click(function (e) {
                 let str = $('#field_DataJSON').val()
                 dat = JSON.parse(str)
                 RefreshData()
+                SaveData()
             });
-            $('#ButtonShowExport').click(function (e) { 
+            $('#ButtonShowExport').click(function (e) {
                 $('#ModalDataExport').modal()
                 let str = JSON.stringify(dat)
                 $('#field_DataJSON').val(str)
-                $('#ButtonImport').attr('disabled',true)
-                $('#field_DataJSON').attr('readonly',true)
+                $('#ButtonImport').attr('disabled', true)
+                $('#field_DataJSON').attr('readonly', true)
+            });
+            $('#Table1 tbody').on('click', 'tr', function (e) {
+                let CurrentEditItem = DataTable.row(this).data();
+                $('#EditField_Name').val(CurrentEditItem[0])
+                $('#EditField_Birthday').val(CurrentEditItem[1])
+                $('#EditField_TEL').val(CurrentEditItem[2])
+                $('#EditField_Email').val(CurrentEditItem[3])
+                $('#EditField_Address').val(CurrentEditItem[4])
+                $('#ModalEdit').modal()
+            });
+            $('#ButtonUpdate').click(function (e) {
+                let CurrentEditItem = DataTable.row(this).data();
+                let n = dat.indexOf(CurrentEditItem)
+                let data = [
+                    $('#EditField_Name').val(),
+                    $('#EditField_Birthday').val(),
+                    $('#EditField_TEL').val(),
+                    $('#EditField_Email').val(),
+                    $('#EditField_Address').val()
+                ]
+                dat[n] = data
+                RefreshData()
+                SaveData()
+            });
+            $('#ButtonDelete').click(function (e) {
+                let CurrentEditItem = DataTable.row(this).data();
+                let n = dat.indexOf(CurrentEditItem)
+                dat.splice(n+1, 1)
+                RefreshData()
+                SaveData()
             });
             LoadData()
         })
@@ -190,6 +221,37 @@
                 <div class="modal-footer">
                     <button id="ButtonImport" type="button" class="btn btn-primary" data-dismiss="modal">匯入</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalEdit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">修改或刪除</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <label>姓名</label>
+                        <input id="EditField_Name" type="text" class="form-control" />
+                        <label>生日</label>
+                        <input id="EditField_Birthday" type="datetime" class="form-control" />
+                        <label>電話</label>
+                        <input id="EditField_TEL" type="tel" class="form-control" />
+                        <label>email</label>
+                        <input id="EditField_Email" type="email" class="form-control" />
+                        <label>地址</label>
+                        <input id="EditField_Address" type="address" class="form-control" />
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="ButtonUpdate" type="button" class="btn btn-primary" data-dismiss="modal">儲存</button>
+                    <button id="ButtonDelete" type="button" class="btn btn-danger" data-dismiss="modal">刪除</button>
                 </div>
             </div>
         </div>
