@@ -34,28 +34,28 @@
             // 載入最後一次結果或初始化資料
             LoadData()
             // 主選單之新增
-            $('#ButtonShowAddNewWindow').click(ButtonShowAddNewWindow)
+            $('#ButtonShowAddNewWindow').click(ButtonShowAddNewWindow_Click)
             // 新增頁面之新增按鈕
-            $('#ButtonAddNew').click(ButtonAddNew)
+            $('#ButtonAddNew').click(ButtonAddNew_Click)
             // 主選單之匯入
-            $('#ButtonShowImport').click(ButtonShowImport)
+            $('#ButtonShowImport').click(ButtonShowImport_Click)
             // 匯出匯入頁面之匯入按鈕
-            $('#ButtonImport').click(ButtonImport)
+            $('#ButtonImport').click(ButtonImport_Click)
             // 主選單之匯出
-            $('#ButtonShowExport').click(ButtonShowExport)
+            $('#ButtonShowExport').click(ButtonShowExport_Click)
             // 叫出單row之修改刪除頁面
-            $('#Table1 tbody').on('click', 'tr', ModalEdit)
+            $('#Table1 tbody').on('click', 'tr', ModalEdit_Click)
             // 修改刪除頁面之儲存按鈕
-            $('#ButtonUpdate').click(ButtonUpdate)
+            $('#ButtonUpdate').click(ButtonUpdate_Click)
             // 修改刪除頁面之刪除按鈕
-            $('#ButtonDelete').click(ButtonDelete)
+            $('#ButtonDelete').click(ButtonDelete_Click)
         })
         // 主選單之新增
-        function ButtonShowAddNewWindow() {
+        function ButtonShowAddNewWindow_Click() {
             $('#ModalAddNew').modal();
         }
         // 新增頁面之新增按鈕
-        function ButtonAddNew() {
+        function ButtonAddNew_Click() {
             let item = [
                 $('#field_Name').val(),
                 $('#field_Birthday').val(),
@@ -69,21 +69,21 @@
             ClearInput()
         }
         // 主選單之匯入
-        function ButtonShowImport() {
+        function ButtonShowImport_Click() {
             $('#ButtonImport').attr('disabled', false)
             $('#field_DataJSON').attr('readonly', false)
             $('#ModalDataExport').modal()
             $('#field_DataJSON').val('')
         }
         // 匯出匯入頁面之匯入按鈕
-        function ButtonImport() {
+        function ButtonImport_Click() {
             let str = $('#field_DataJSON').val()
             dat = JSON.parse(str)
             RefreshData()
             SaveData()
         }
         // 主選單之匯出
-        function ButtonShowExport() {
+        function ButtonShowExport_Click() {
             $('#ModalDataExport').modal()
             let str = JSON.stringify(dat)
             $('#field_DataJSON').val(str)
@@ -91,7 +91,7 @@
             $('#field_DataJSON').attr('readonly', true)
         }
         // 叫出單row之修改刪除頁面
-        function ModalEdit() {
+        function ModalEdit_Click() {
             CurrentEditItem = DataTable.row(this).data();
             $('#EditField_Name').val(CurrentEditItem[0])
             $('#EditField_Birthday').val(CurrentEditItem[1])
@@ -101,7 +101,7 @@
             $('#ModalEdit').modal()
         }
         // 修改刪除頁面之儲存按鈕
-        function ButtonUpdate() {
+        function ButtonUpdate_Click() {
             let n = dat.indexOf(CurrentEditItem)
             let data = [
                 $('#EditField_Name').val(),
@@ -115,7 +115,7 @@
             SaveData()
         }
         // 修改刪除頁面之刪除按鈕
-        function ButtonDelete() {
+        function ButtonDelete_Click() {
             let n = dat.indexOf(CurrentEditItem)
             dat.splice(n, 1)
             RefreshData()
