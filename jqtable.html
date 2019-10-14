@@ -51,6 +51,7 @@
             });
             $('#ButtonShowImport').click(function (e) { 
                 $('#ButtonImport').attr('disabled',false)
+                $('#field_DataJSON').attr('readonly',false)
                 $('#ModalDataExport').modal()
                 $('#field_DataJSON').val('')
             });
@@ -64,6 +65,7 @@
                 let str = JSON.stringify(dat)
                 $('#field_DataJSON').val(str)
                 $('#ButtonImport').attr('disabled',true)
+                $('#field_DataJSON').attr('readonly',true)
             });
             LoadData()
         })
@@ -189,7 +191,6 @@
                     <button id="ButtonImport" type="button" class="btn btn-primary" data-dismiss="modal">匯入</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
                 </div>
-
             </div>
         </div>
     </div>
