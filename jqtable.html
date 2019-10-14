@@ -31,10 +31,8 @@
         // 目前點選的row
         var CurrentEditItem = 0
         $(function () {
-            // 初始化資料表
-            DataTable = $('#Table1').DataTable({
-                data: dat
-            })
+            // 載入最後一次結果或初始化資料
+            LoadData()
             // 主選單之新增
             $('#ButtonShowAddNewWindow').click(ButtonShowAddNewWindow)
             // 新增頁面之新增按鈕
@@ -51,8 +49,6 @@
             $('#ButtonUpdate').click(ButtonUpdate)
             // 修改刪除頁面之刪除按鈕
             $('#ButtonDelete').click(ButtonDelete)
-            // 載入最後一次結果
-            LoadData()
         })
         // 主選單之新增
         function ButtonShowAddNewWindow() {
@@ -144,8 +140,11 @@
             let str = JSON.stringify(dat)
             localStorage.setItem('TemporaryData', str)
         }
-        // 載入最後一次結果
+        // 載入最後一次結果或初始化資料
         function LoadData() {
+            DataTable = $('#Table1').DataTable({
+                data: dat
+            })
             if (localStorage.getItem('TemporaryData') != null) {
                 let str = localStorage.getItem('TemporaryData')
                 dat = JSON.parse(str)
