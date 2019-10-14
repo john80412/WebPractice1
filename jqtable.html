@@ -92,7 +92,7 @@
             });
             $('#ButtonDelete').click(function (e) {
                 let n = dat.indexOf(CurrentEditItem)
-                dat.splice(n+1, 1)
+                dat.splice(n, 1)
                 RefreshData()
                 SaveData()
             });
