@@ -121,6 +121,7 @@
   <script>
     var answer = ''
     var display = ''
+    var past = []
     // 計算元素重複的個數
     var collectionRepeat = function (box, key) {
       var counter = {};
@@ -174,6 +175,7 @@
     // 清空答案與防呆
     function abortGame() {
       answer = ''
+      past = []
       $('#guessResults').html('')
       disableOnOff(false,true)
     }
@@ -197,9 +199,17 @@
           flag = true
         }
       })
+      // 判斷數組是否重複
+      if (past.includes(input)) {
+        return alert('此組數字已猜過')
+      }
       // 判斷長度
-      if (inputArray.length != 4 || flag == true) {
+      else if (inputArray.length != 4 || flag == true) {
         return alert('請輸入四位不重複數字')
+      }
+      else{
+        // 紀錄曾經猜過的數字
+        past.push(input)
       }
       // 判斷幾A幾B
       array.forEach(element => {
