@@ -186,10 +186,12 @@
     // 猜數字
     function doGuess() {
       let input = $('#userGuess').val()
-      $('#userGuess').val('')//清空使用者輸入
+      //清空使用者輸入
+      $('#userGuess').val('')
       let inputArray = [].slice.call(input)
       let answerArray = [].slice.call(answer)
-      let array = inputArray.filter(v => answerArray.includes(v))// 取交集
+      // 取交集
+      let array = inputArray.filter(v => answerArray.includes(v))
       let aNumber = 0
       let bNumber = 0
       let flag = false
