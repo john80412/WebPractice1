@@ -5,6 +5,18 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <style>
         /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -23,11 +35,38 @@
 </head>
 
 <body>
-    <div id="map"></div>
+    <div class="container-fluid row h-100">
+        <div class="col-2">
+            <div class="list-group">
+                <input type="button" class="list-group-item list-group-item-action block active" value='全區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='信義區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='大安區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='中山區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='松山區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='南港區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='中正區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='萬華區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='文山區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='大同區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='士林區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='內湖區'>
+                <input type="button" class="list-group-item list-group-item-action block" value='北投區'>
+            </div>
+        </div>
+        <div class="col-10">
+            <div id="map" class=""></div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         var map
+        var area = ''
+        $(() => {
+            $('.block').click(block_Click);
+        })
+
         function initMap() {
             navigator.geolocation.getCurrentPosition((position) => {
                 // 抓取當前位置
@@ -57,9 +96,9 @@
                         icon: 'bike_blue.png'
                     }
                 };
-                var features = GetUbikeLocation()
+                let features = GetUbikeLocation()
                 // Create markers.
-                for (var i = 0; i < features.length; i++) {
+                for (let i = 0; i < features.length; i++) {
                     var marker = new google.maps.Marker({
                         position: features[i].position,
                         icon: icons[features[i].type].icon,
@@ -90,7 +129,7 @@
             //     position: new google.maps.LatLng(25.0420801, 121.5361051),
             //     type: 'ubike'
             // }]
-            var data = []
+            let data = []
             // 呼叫opendata
             var openData = getOpenData()
             // 顯示每個item的值
@@ -98,9 +137,11 @@
                 let singleItem = {
                     position: new google.maps.LatLng(item.lat, item.lng),
                     type: item.sbi < 10 ? 'ubikesmall' : 'ubike',
-                    tittle: `${item.sbi}/${item.tot}`
+                    tittle: `${item.sbi}/${item.tot}`,
                 }
-                data.push(singleItem)
+                if (item.sarea == area || area == '全區' || area == '') {
+                    data.push(singleItem)
+                }
             })
             return data
         }
@@ -120,6 +161,15 @@
                 async: false
             })
             return ubikelocation
+        }
+
+        function block_Click() {
+            area = $(this).val()
+            $(this)
+            .addClass('active')
+            .siblings()
+            .removeClass('active')
+            initMap()
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlKWP4uWjQIR3WDAWLAu6rUhBfc3_ppag&callback=initMap"
