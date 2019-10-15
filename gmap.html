@@ -28,10 +28,6 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         var map
-        $(() => {
-            GetUbikeLocation()
-        })
-
         function initMap() {
             navigator.geolocation.watchPosition((position) => {
                 // 抓取當前位置
