@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        var map
+        $(() => {
+            GetUbikeLocation()
+        })
+
+        function initMap() {
+            var myLatLng = {
+                lat: 25.0420801,
+                lng: 121.5361051
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+            var icons = {
+                ubike: {
+                    icon: 'bike.png'
+                },
+                ubikesmall: {
+                    icon: 'bike_blue.png'
+                }
+            };
+            var features = GetUbikeLocation()
+            // Create markers.
+            for (var i = 0; i < features.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: features[i].position,
+                    icon: icons[features[i].type].icon,
+                    title: features[i].tittle,
+                    map: map
+                });
+            };
+        }
+        // 取得ubike位置
+        function GetUbikeLocation() {
+            // [{
+            //     position: new google.maps.LatLng(25.0420801, 121.5361051),
+            //     type: 'ubike'
+            // }]
+            var data = []
+            // 呼叫opendata
+            var openData = getOpenData()
+            // 顯示每個item的值
+            $.each(openData.retVal,(i,item) => {
+                let singleItem = {
+                    position: new google.maps.LatLng(item.lat, item.lng),
+                    type: item.sbi < 10 ? 'ubikesmall' : 'ubike',
+                    tittle: `${item.sbi}/${item.tot}`
+                }
+                data.push(singleItem)
+            })
+            return data
+        }
+        // 取得opendata
+        function getOpenData() {
+            var ubikelocation
+            $.ajax({
+                type: 'Get',
+                url: 'https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json',
+                success: (data) => {
+                    ubikelocation = data
+                    console.log(`data is ${data}`)
+                },
+                error: () => {
+                    alert('fail')
+                },
+                async : false
+            })
+            return ubikelocation
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlKWP4uWjQIR3WDAWLAu6rUhBfc3_ppag&callback=initMap"
+        async defer></script>
+</body>
+
+</html>
