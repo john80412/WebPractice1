@@ -167,7 +167,7 @@
     }
     // 產生答案與防呆
     function startGame() {
-      // 防止進用按鈕觸發點擊事件
+      // 防止禁用按鈕觸發點擊事件
       if(!flagOnOff) return
       let array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
       for (let i = 0; i < 4; i++) {
@@ -179,7 +179,7 @@
     }
     // 清空答案與防呆
     function abortGame() {
-      // 防止進用按鈕觸發點擊事件
+      // 防止禁用按鈕觸發點擊事件
       if(flagOnOff) return
       answer = ''
       past = []
@@ -188,13 +188,13 @@
     }
     // 顯示答案
     function showAnswer() {
-      // 防止進用按鈕觸發點擊事件
+      // 防止禁用按鈕觸發點擊事件
       if(flagOnOff) return
       alert(`答案為 ${answer}`)
     }
     // 猜數字
     function doGuess() {
-      // 防止進用按鈕觸發點擊事件
+      // 防止禁用按鈕觸發點擊事件
       if(flagOnOff) return
       let input = $('#userGuess').val()
       //清空使用者輸入
