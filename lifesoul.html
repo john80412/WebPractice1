@@ -127,7 +127,7 @@
                 this.dateceil = new Date(year, dateceilMonth, dateceilDay)
             }
         }
-
+        //  建資料
         function setData(year) {
             array.push(new horoscope('capricorn', year, 0, 1, 0, 19))
             array.push(new horoscope('aquarius', year, 0, 20, 1, 18))
@@ -158,7 +158,7 @@
                 data:'',
                 dataType:'json',
                 success:(response) => {
-                    $('.result').append(`${context.replace(/\//g, '=')} 出生的你 星座是${response.name}
+                    $('.result').html(`${context.replace(/\//g, '=')} 出生的你 星座是${response.name}
                                         <br>
                                         你的生命靈數:
                                         <br>
@@ -172,7 +172,9 @@
             var date = Date.parse(context)
             let calculate = parseInt(context.replace(/\//g, ''))
             let sum = 0
+            // 取年分
             setData(parseInt(context.split('/')[0]))
+            // 取得輸入的生命靈數
             while (calculate != 0 || sum > 9) {
                 if (calculate == 0) {
                     calculate = sum
@@ -181,9 +183,11 @@
                 sum += calculate % 10
                 calculate = Math.floor(calculate / 10)
             }
+            // 取得輸入的星座
             array.forEach(element => {
                 if (date >= element.datefloor && date <= element.dateceil) {
                     callapi(element.name,sum)
+                    array = []
                 }
             });
 
