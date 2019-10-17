@@ -36,7 +36,7 @@
 
         .clear {
             border-radius: 10%;
-            transition: all 1s;
+            transition: all 1.5s;
         }
     </style>
 
@@ -59,9 +59,9 @@
 
         function ButtonStart() {
             $('img').prop('src', 'images/back.png');
-            times = 7; //跑50次
+            times = 30; //跑50次
             Cards[index].addClass("imgs");
-            flag = setInterval(start, 500);
+            flag = setInterval(start, 100);
         }
 
         function start() {
