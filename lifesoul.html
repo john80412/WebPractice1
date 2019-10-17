@@ -96,6 +96,9 @@
                                     <a id="guess" type="button" class="btn btn-primary">分析結果</a>
                                 </span>
                             </div>
+                            <div class="result">
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,18 +118,75 @@
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script>
+        var array = []
+        var context = ''
+        class horoscope {
+            constructor(name, year, datefloorMonth, datefloorDay, dateceilMonth, dateceilDay) {
+                this.name = name
+                this.datefloor = new Date(year, datefloorMonth, datefloorDay)
+                this.dateceil = new Date(year, dateceilMonth, dateceilDay)
+            }
+        }
+
+        function setData(year) {
+            array.push(new horoscope('capricorn', year, 0, 1, 0, 19))
+            array.push(new horoscope('aquarius', year, 0, 20, 1, 18))
+            array.push(new horoscope('pisces', year, 1, 19, 2, 20))
+            array.push(new horoscope('aries', year, 2, 21, 3, 20))
+            array.push(new horoscope('taurus', year, 3, 21, 4, 20))
+            array.push(new horoscope('gemini', year, 4, 21, 5, 21))
+            array.push(new horoscope('cancer', year, 5, 22, 6, 22))
+            array.push(new horoscope('leo', year, 6, 23, 7, 22))
+            array.push(new horoscope('virgo', year, 7, 23, 8, 22))
+            array.push(new horoscope('libra', year, 8, 23, 9, 23))
+            array.push(new horoscope('scorpio', year, 9, 24, 10, 22))
+            array.push(new horoscope('sagittarius', year, 10, 23, 11, 21))
+            array.push(new horoscope('capricorn', year, 11, 22, 11, 31))
+        }
         $(() => {
             $('#userGuess').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                format:"yyyy/mm/dd"
+                format: "yyyy/mm/dd"
             })
             $('#guess').click(getResult)
         })
+        function callapi(horoname,lifenumber) {
+            $.ajax({
+                type:'get',
+                url:`https://buildschoolnumerology.azurewebsites.net/api/Number/Numerology?constellation=${horoname}`,
+                data:'',
+                dataType:'json',
+                success:(response) => {
+                    $('.result').append(`${context.replace(/\//g, '=')} 出生的你 星座是${response.name}
+                                        <br>
+                                        你的生命靈數:
+                                        <br>
+                                        ${lifenumber}.${response.lookup[lifenumber-1]}
+                                        `)
+                }
+            })
+        }
         function getResult() {
-            let u = new Date(2019,9,17)
-            let i = Date.parse( $('#userGuess').val())
-            alert(u > i)
+            context = $('#userGuess').val()
+            var date = Date.parse(context)
+            let calculate = parseInt(context.replace(/\//g, ''))
+            let sum = 0
+            setData(parseInt(context.split('/')[0]))
+            while (calculate != 0 || sum > 9) {
+                if (calculate == 0) {
+                    calculate = sum
+                    sum = 0
+                }
+                sum += calculate % 10
+                calculate = Math.floor(calculate / 10)
+            }
+            array.forEach(element => {
+                if (date >= element.datefloor && date <= element.dateceil) {
+                    callapi(element.name,sum)
+                }
+            });
+
         }
     </script>
 
