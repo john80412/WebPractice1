@@ -155,10 +155,9 @@
             $.ajax({
                 type:'get',
                 url:`https://buildschoolnumerology.azurewebsites.net/api/Number/Numerology?constellation=${horoname}`,
-                data:'',
                 dataType:'json',
                 success:(response) => {
-                    $('.result').html(`${context.replace(/\//g, '=')} 出生的你 星座是${response.name}
+                    $('.result').html(`<span style='background-color:Aqua'>${context.replace(/\//g, '-')}</span> 出生的你 星座是${response.name}
                                         <br>
                                         你的生命靈數:
                                         <br>
@@ -169,7 +168,8 @@
         }
         function getResult() {
             context = $('#userGuess').val()
-            var date = Date.parse(context)
+            let date = Date.parse(context)
+            // 正則表達式去掉所有的 /
             let calculate = parseInt(context.replace(/\//g, ''))
             let sum = 0
             // 取年分
