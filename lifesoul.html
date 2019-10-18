@@ -91,13 +91,13 @@
                             <br>
                             <div class="input-group">
                                 <input id="userGuess" type="text" name="" class="form-control" value=""
-                                    required="required">
+                                    required="required" placeholder="請輸入日期">
                                 <span class="input-group-btn">
                                     <a id="guess" type="button" class="btn btn-primary">分析結果</a>
                                 </span>
                             </div>
                             <div class="result">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -143,29 +143,44 @@
             array.push(new horoscope('sagittarius', year, 10, 23, 11, 21))
             array.push(new horoscope('capricorn', year, 11, 22, 11, 31))
         }
+        // 設定顯示日期之格式
+        function setLanguage() {
+            $.fn.datepicker.languages['zh-CN'] = {
+                format: 'yyyy/mm/dd',
+                daysMin: ['日', '一', '二', '三', '四', '五', '六'],
+                monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                weekStart: 1,
+                startView: 2,
+                yearFirst: true,
+                yearSuffix: '年',
+                autoHide: true
+            }
+        }
         $(() => {
+            setLanguage()
             $('#userGuess').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                format: "yyyy/mm/dd"
+                language: 'zh-CN'
             })
             $('#guess').click(getResult)
         })
-        function callapi(horoname,lifenumber) {
+
+        function callapi(horoname, lifenumber) {
             $.ajax({
-                type:'get',
-                url:`https://buildschoolnumerology.azurewebsites.net/api/Number/Numerology?constellation=${horoname}`,
-                dataType:'json',
-                success:(response) => {
-                    $('.result').html(`<span style='background-color:Aqua'>${context.replace(/\//g, '-')}</span> 出生的你 星座是${response.name}
-                                        <br>
-                                        你的生命靈數:
-                                        <br>
-                                        ${lifenumber}.${response.lookup[lifenumber-1]}
-                                        `)
+                type: 'get',
+                url: `https://buildschoolnumerology.azurewebsites.net/api/Number/Numerology?constellation=${horoname}`,
+                dataType: 'json',
+                success: (response) => {
+                    $('.result').addClass('list-group-item')
+                    $('.result').addClass('list-group-item').html(`<span style='background-color:Aqua'>${context.replace(/\//g, '-')}</span> 出生的你 星座是${response.name}
+                                                                    <br>
+                                                                    你的生命靈數:
+                                                                    <br>
+                                                                    ${lifenumber}.${response.lookup[lifenumber-1]}
+                                                                    `)
                 }
             })
         }
+
         function getResult() {
             context = $('#userGuess').val()
             let date = Date.parse(context)
@@ -186,7 +201,7 @@
             // 取得輸入的星座
             array.forEach(element => {
                 if (date >= element.datefloor && date <= element.dateceil) {
-                    callapi(element.name,sum)
+                    callapi(element.name, sum)
                     array = []
                 }
             })
