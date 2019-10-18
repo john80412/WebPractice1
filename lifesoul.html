@@ -199,10 +199,11 @@
                 calculate = Math.floor(calculate / 10)
             }
             // 取得輸入的星座
-            array.forEach(element => {
+            $.each(array,(i,element) => {
                 if (date >= element.datefloor && date <= element.dateceil) {
                     callapi(element.name, sum)
                     array = []
+                    return false
                 }
             })
         }
