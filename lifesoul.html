@@ -128,27 +128,26 @@
             $('#guess').click(getResult)
         })
         class horoscope {
-            constructor(name, year, datefloorMonth, datefloorDay, dateceilMonth, dateceilDay) {
+            constructor(name, year, dateceilMonth, dateceilDay) {
                 this.name = name
-                this.datefloor = new Date(year, datefloorMonth, datefloorDay)
                 this.dateceil = new Date(year, dateceilMonth, dateceilDay)
             }
         }
         //  建資料
         function setData(year) {
-            array.push(new horoscope('capricorn', year, 0, 1, 0, 19))
-            array.push(new horoscope('aquarius', year, 0, 20, 1, 18))
-            array.push(new horoscope('pisces', year, 1, 19, 2, 20))
-            array.push(new horoscope('aries', year, 2, 21, 3, 20))
-            array.push(new horoscope('taurus', year, 3, 21, 4, 20))
-            array.push(new horoscope('gemini', year, 4, 21, 5, 21))
-            array.push(new horoscope('cancer', year, 5, 22, 6, 22))
-            array.push(new horoscope('leo', year, 6, 23, 7, 22))
-            array.push(new horoscope('virgo', year, 7, 23, 8, 22))
-            array.push(new horoscope('libra', year, 8, 23, 9, 23))
-            array.push(new horoscope('scorpio', year, 9, 24, 10, 22))
-            array.push(new horoscope('sagittarius', year, 10, 23, 11, 21))
-            array.push(new horoscope('capricorn', year, 11, 22, 11, 31))
+            array.push(new horoscope('capricorn', year, 0, 19))
+            array.push(new horoscope('aquarius', year, 1, 18))
+            array.push(new horoscope('pisces', year, 2, 20))
+            array.push(new horoscope('aries', year, 3, 20))
+            array.push(new horoscope('taurus', year, 4, 20))
+            array.push(new horoscope('gemini', year, 5, 21))
+            array.push(new horoscope('cancer', year, 6, 22))
+            array.push(new horoscope('leo', year, 7, 22))
+            array.push(new horoscope('virgo', year, 8, 22))
+            array.push(new horoscope('libra', year, 9, 23))
+            array.push(new horoscope('scorpio', year, 10, 22))
+            array.push(new horoscope('sagittarius', year, 11, 21))
+            array.push(new horoscope('capricorn', year, 11, 31))
         }
         // 設定顯示日期之格式
         function setLanguage() {
@@ -194,7 +193,7 @@
             }
             // 取得輸入的星座
             $.each(array, (i, element) => {
-                if (date >= element.datefloor && date <= element.dateceil) {
+                if (date <= element.dateceil) {
                     callapi(element.name, sum)
                     array = []
                     return false
