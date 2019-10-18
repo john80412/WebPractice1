@@ -118,6 +118,13 @@
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script>
+        $(() => {
+            setLanguage()
+            $('#userGuess').datepicker({
+                language: 'zh-CN'
+            })
+            $('#guess').click(getResult)
+        })
         var array = []
         var context = ''
         class horoscope {
@@ -156,13 +163,6 @@
                 autoHide: true
             }
         }
-        $(() => {
-            setLanguage()
-            $('#userGuess').datepicker({
-                language: 'zh-CN'
-            })
-            $('#guess').click(getResult)
-        })
 
         function callapi(horoname, lifenumber) {
             $.ajax({
@@ -199,7 +199,7 @@
                 calculate = Math.floor(calculate / 10)
             }
             // 取得輸入的星座
-            $.each(array,(i,element) => {
+            $.each(array, (i, element) => {
                 if (date >= element.datefloor && date <= element.dateceil) {
                     callapi(element.name, sum)
                     array = []
