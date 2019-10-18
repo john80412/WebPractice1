@@ -126,6 +126,7 @@
                 language: 'zh-CN'
             })
             $('#guess').click(getResult)
+            $('#userGuess').on('hide.datepicker',getResult)
         })
         class horoscope {
             constructor(name, year, dateceilMonth, dateceilDay) {
