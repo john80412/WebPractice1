@@ -118,6 +118,8 @@
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script>
+        var array = []
+        var context = ''
         $(() => {
             setLanguage()
             $('#userGuess').datepicker({
@@ -125,8 +127,6 @@
             })
             $('#guess').click(getResult)
         })
-        var array = []
-        var context = ''
         class horoscope {
             constructor(name, year, datefloorMonth, datefloorDay, dateceilMonth, dateceilDay) {
                 this.name = name
