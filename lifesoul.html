@@ -184,9 +184,9 @@
             context = $('#userGuess').val()
             let date = Date.parse(context)
             // 正則表達式去掉所有的 /
-            let sum = parseInt(context.replace(/\//g, ''))
+            let sum = parseInt(context.replace(/\//g, ''),10)
             // 取年分
-            setData(parseInt(context.split('/')[0]))
+            setData(parseInt(context.split('/')[0],10))
             // 取得輸入的生命靈數
             while (sum > 9) {
                 sum = Math.floor(sum / 10) + sum % 10
