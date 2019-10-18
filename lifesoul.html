@@ -171,11 +171,15 @@
                 success: (response) => {
                     $('.result').addClass('list-group-item')
                     $('.result').addClass('list-group-item').html(`<span style='background-color:Aqua'>${context.replace(/\//g, '-')}</span> 出生的你 星座是${response.name}
+                                                                    <button type="button" class="close">&times;</button>
                                                                     <br>
                                                                     你的生命靈數:
                                                                     <br>
                                                                     ${lifenumber}.${response.lookup[lifenumber-1]}
                                                                     `)
+                    $('.close').click(() => {
+                        $('.result').removeClass('list-group-item').html('')
+                    })
                 }
             })
         }
