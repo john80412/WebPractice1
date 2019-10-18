@@ -62,10 +62,35 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         var map
-        var area = ''
+        var area = '全區'
+        var array = []
         $(() => {
             $('.block').click(block_Click);
         })
+        function setLocation() {
+                array.forEach(e => {
+                    e.setMap(null)
+                })
+                var icons = {
+                    ubike: {
+                        icon: 'bike.png'
+                    },
+                    ubikesmall: {
+                        icon: 'bike_blue.png'
+                    }
+                };
+                let features = GetUbikeLocation()
+                // Create markers.
+                for (let i = 0; i < features.length; i++) {
+                    var marker = new google.maps.Marker({
+                        position: features[i].position,
+                        icon: icons[features[i].type].icon,
+                        title: features[i].tittle,
+                        map: map
+                    });
+                    array.push(marker)
+                };
+        }
 
         function initMap() {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -88,40 +113,8 @@
                     map: map
                 });
                 // 抓取當前位置結束
-                var icons = {
-                    ubike: {
-                        icon: 'bike.png'
-                    },
-                    ubikesmall: {
-                        icon: 'bike_blue.png'
-                    }
-                };
-                let features = GetUbikeLocation()
-                // Create markers.
-                for (let i = 0; i < features.length; i++) {
-                    var marker = new google.maps.Marker({
-                        position: features[i].position,
-                        icon: icons[features[i].type].icon,
-                        title: features[i].tittle,
-                        map: map
-                    });
-                };
+                setLocation()
             });
-            // var myLatLng = {
-            //     lat: 25.0420801,
-            //     lng: 121.5361051
-            // };
-
-            // var map = new google.maps.Map(document.getElementById('map'), {
-            //     zoom: 17,
-            //     center: myLatLng
-            // });
-
-            // var marker = new google.maps.Marker({
-            //     position: myLatLng,
-            //     map: map,
-            //     title: 'Hello World!'
-            // });
         }
         // 取得ubike位置
         function GetUbikeLocation() {
@@ -139,7 +132,7 @@
                     type: item.sbi < 10 ? 'ubikesmall' : 'ubike',
                     tittle: `${item.sbi}/${item.tot}`,
                 }
-                if (item.sarea == area || area == '全區' || area == '') {
+                if (item.sarea == area || area == '全區') {
                     data.push(singleItem)
                 }
             })
@@ -169,7 +162,7 @@
             .addClass('active')
             .siblings()
             .removeClass('active')
-            initMap()
+            setLocation()
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlKWP4uWjQIR3WDAWLAu6rUhBfc3_ppag&callback=initMap"
