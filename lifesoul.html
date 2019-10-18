@@ -185,18 +185,12 @@
             context = $('#userGuess').val()
             let date = Date.parse(context)
             // 正則表達式去掉所有的 /
-            let calculate = parseInt(context.replace(/\//g, ''))
-            let sum = 0
+            let sum = parseInt(context.replace(/\//g, ''))
             // 取年分
             setData(parseInt(context.split('/')[0]))
             // 取得輸入的生命靈數
-            while (calculate != 0 || sum > 9) {
-                if (calculate == 0) {
-                    calculate = sum
-                    sum = 0
-                }
-                sum += calculate % 10
-                calculate = Math.floor(calculate / 10)
+            while (sum > 9) {
+                sum = Math.floor(sum / 10) + sum % 10
             }
             // 取得輸入的星座
             $.each(array, (i, element) => {
