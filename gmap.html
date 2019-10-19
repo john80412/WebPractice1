@@ -39,18 +39,6 @@
         <div class="col-2">
             <div class="list-group">
                 <input type="button" class="list-group-item list-group-item-action block active" value='全區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='信義區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='大安區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='中山區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='松山區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='南港區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='中正區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='萬華區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='文山區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='大同區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='士林區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='內湖區'>
-                <input type="button" class="list-group-item list-group-item-action block" value='北投區'>
             </div>
         </div>
         <div class="col-10">
@@ -64,32 +52,43 @@
         var map
         var area = '全區'
         var array = []
-        $(() => {
-            $('.block').click(block_Click);
-        })
+        var locationarea = []
+        $(() => {})
+
         function setLocation() {
-                array.forEach(e => {
-                    e.setMap(null)
-                })
-                var icons = {
-                    ubike: {
-                        icon: 'bike.png'
-                    },
-                    ubikesmall: {
-                        icon: 'bike_blue.png'
-                    }
-                };
-                let features = GetUbikeLocation()
-                // Create markers.
-                for (let i = 0; i < features.length; i++) {
-                    var marker = new google.maps.Marker({
-                        position: features[i].position,
-                        icon: icons[features[i].type].icon,
-                        title: features[i].tittle,
-                        map: map
-                    });
-                    array.push(marker)
-                };
+            array.forEach(e => {
+                e.setMap(null)
+            })
+            var icons = {
+                ubike: {
+                    icon: 'bike.png'
+                },
+                ubikesmall: {
+                    icon: 'bike_blue.png'
+                }
+            };
+            let features = GetUbikeLocation()
+            // Create markers.
+            for (let i = 0; i < features.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: features[i].position,
+                    icon: icons[features[i].type].icon,
+                    title: features[i].tittle,
+                    map: map
+                });
+                array.push(marker)
+            };
+            // features = GetBikeLocation()
+            // // Create markers.
+            // for (let i = 0; i < features.length; i++) {
+            //     var marker = new google.maps.Marker({
+            //         position: features[i].position,
+            //         icon: icons[features[i].type].icon,
+            //         title: features[i].tittle,
+            //         map: map
+            //     });
+            //     array.push(marker)
+            // };
         }
 
         function initMap() {
@@ -124,13 +123,50 @@
             // }]
             let data = []
             // 呼叫opendata
-            var openData = getOpenData()
+            let openData = getOpenData('https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json')
             // 顯示每個item的值
             $.each(openData.retVal, (i, item) => {
                 let singleItem = {
                     position: new google.maps.LatLng(item.lat, item.lng),
                     type: item.sbi < 10 ? 'ubikesmall' : 'ubike',
                     tittle: `${item.sbi}/${item.tot}`,
+                }
+                if (locationarea.indexOf(item.sarea) == -1) {
+                    locationarea.push(item.sarea)
+                    $('.list-group').append(
+                        `<input type="button" class="list-group-item list-group-item-action block" value='${item.sarea}'>`
+                    )
+                    $('.block').click(block_Click)
+                }
+                if (item.sarea == area || area == '全區') {
+                    data.push(singleItem)
+                }
+            })
+            return data
+        }
+        // 取得Bike位置
+        function GetBikeLocation() {
+            // [{
+            //     position: new google.maps.LatLng(25.0420801, 121.5361051),
+            //     type: 'ubike'
+            // }]
+            let data = []
+            // 呼叫opendata
+            let openData = getOpenData(
+                'https://data.ntpc.gov.tw/od/data/api/54DDDC93-589C-4858-9C95-18B2046CC1FC?$format=json')
+            // 顯示每個item的值
+            $.each(openData, (i, item) => {
+                let singleItem = {
+                    position: new google.maps.LatLng(item.lat, item.lng),
+                    type: item.sbi < 10 ? 'ubikesmall' : 'ubike',
+                    tittle: `${item.sbi}/${item.tot}`,
+                }
+                if (locationarea.indexOf(item.sarea) == -1) {
+                    locationarea.push(item.sarea)
+                    $('.list-group').append(
+                        `<input type="button" class="list-group-item list-group-item-action block" value='${item.sarea}'>`
+                    )
+                    $('.block').click(block_Click)
                 }
                 if (item.sarea == area || area == '全區') {
                     data.push(singleItem)
@@ -139,19 +175,18 @@
             return data
         }
         // 取得opendata
-        function getOpenData() {
-            var ubikelocation
+        function getOpenData(urls) {
+            let ubikelocation
             $.ajax({
                 type: 'Get',
-                url: 'https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json',
+                url: urls,
                 success: (data) => {
                     ubikelocation = data
-                    console.log(`data is ${data}`)
                 },
                 error: () => {
                     alert('fail')
                 },
-                async: false
+                async: false,
             })
             return ubikelocation
         }
@@ -159,9 +194,9 @@
         function block_Click() {
             area = $(this).val()
             $(this)
-            .addClass('active')
-            .siblings()
-            .removeClass('active')
+                .addClass('active')
+                .siblings()
+                .removeClass('active')
             setLocation()
         }
     </script>
