@@ -121,8 +121,6 @@
   <script>
     var answer = ''
     var display = ''
-    // 按鈕觸發點擊事件之開關(true => 開始可點擊 false => 開始不可點擊)
-    var flagOnOff = true
     var past = []
     // 計算元素重複的個數
     var collectionRepeat = function (box, key) {
@@ -163,12 +161,11 @@
       $('#cheat').attr('disabled', fl2)
       $('#guess').attr('disabled', fl2)
       $('#userGuess').attr('disabled', fl2)
-      flagOnOff = fl2
     }
     // 產生答案與防呆
     function startGame() {
       // 防止禁用按鈕觸發點擊事件
-      if(!flagOnOff) return
+      if($(this).attr('disabled')) return
       let array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
       for (let i = 0; i < 4; i++) {
         let n = Math.floor(Math.random() * (10 - i))
@@ -180,7 +177,7 @@
     // 清空答案與防呆
     function abortGame() {
       // 防止禁用按鈕觸發點擊事件
-      if(flagOnOff) return
+      if($(this).attr('disabled')) return
       answer = ''
       past = []
       $('#guessResults').html('')
@@ -189,13 +186,13 @@
     // 顯示答案
     function showAnswer() {
       // 防止禁用按鈕觸發點擊事件
-      if(flagOnOff) return
+      if($(this).attr('disabled')) return
       alert(`答案為 ${answer}`)
     }
     // 猜數字
     function doGuess() {
       // 防止禁用按鈕觸發點擊事件
-      if(flagOnOff) return
+      if($(this).attr('disabled')) return
       let input = $('#userGuess').val()
       //清空使用者輸入
       $('#userGuess').val('')
