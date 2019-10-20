@@ -126,7 +126,8 @@
                 language: 'zh-CN'
             })
             $('#guess').click(getResult)
-            $('#userGuess').on('hide.datepicker',getResult)
+            // 不設延時,日期還沒改變就會執行 getResult()
+            $('#userGuess').on('hide.datepicker',() => {setTimeout(getResult,1)})
         })
         class horoscope {
             constructor(name, year, dateceilMonth, dateceilDay) {
