@@ -124,8 +124,11 @@
         var count = 0
         var n = 9
         var daysdisplay
+        var monthdisplay
         var contextdisplay
+        var dataArray = []
         $(() => {
+            // localStorage.clear()
             createTable()
             $('.left').click(left_click)
             $('.right').click(right_click)
@@ -138,35 +141,79 @@
                 $('#addMonths').append(`<option value='${i}'>${i+1}</option>`)
             }
         })
+
+        function loadData() {
+            if (dataArray == []) return
+            let month = $('.h1').attr('value')
+            let array = dataArray.filter(v => new Date(v.date).getMonth() == parseInt(month))
+            $.each(array, (i, item) => {
+                let displayday = new Date(item.date).getDate()
+                $(`th[value='${displayday}'] .card-body`).html(item.content)
+            })
+            console.log(dataArray)
+        }
+
         function addMonths_change() {
-            let years = $('#addYears').val()
-            let month = $('#addMonths').val()
-            let monthMargin = parseInt(month) + 1 == 12 ? 0 : parseInt(month) + 1
+            let years = parseInt($('#addYears').val())
+            let month = parseInt($('#addMonths').val())
+            let monthMargin = month + 1 == 12 ? 0 : month + 1
             $('#addDays').html('')
             let last_day = new Date(years, monthMargin, 0).getDate()
             for (let i = 0; i < last_day; i++) {
                 $('#addDays').append(`<option value='${i+1}'>${i+1}</option>`)
             }
         }
+
         function ButtonDelete_click() {
             $(`th[value='${daysdisplay}'] .card-body`).html('')
+            $.each(dataArray, (i, item) => {
+                if (new Date(item.date) == new Date(2019, monthdisplay, daysdisplay)) {
+                    dataArray.splice(i, 1)
+                }
+            })
+            localStorage.setItem('data', JSON.stringify(dataArray))
         }
+
         function ButtonUpdate_click() {
-            let displaycontext = $('#contextdisplay').val().replace(/\n/g,'<br>')
+            let displaycontext = $('#contextdisplay').val().replace(/\n/g, '<br>')
             $(`th[value='${daysdisplay}'] .card-body`).html(displaycontext)
+            $.each(dataArray, (i, item) => {
+                if (new Date(item.date) == new Date(2019, monthdisplay, daysdisplay)) {
+                    item.content = displaycontext
+                }
+            })
+            localStorage.setItem('data', JSON.stringify(dataArray))
+            console.log(dataArray)
         }
+
         function th_click() {
-            daysdisplay = $(this).attr('value')
-            contextdisplay = $(`th[value='${daysdisplay}'] .card-body`).html().replace(/<br>/g,'\n')
+            daysdisplay = parseInt((this).val())
+            monthdisplay = parseInt(('.h1').val())
+            contextdisplay = $(`th[value='${daysdisplay}'] .card-body`).html().replace(/<br>/g, '\n')
             $('.daysdisplay').html(daysdisplay)
             $('#contextdisplay').val(`${contextdisplay}`)
             $('#ModalEdit').modal()
         }
 
         function ButtonAdd_click() {
-            let addDay = $('#addDays').val()
+            let addMonth = parseInt($('#addMonths').val())
+            let addDay = parseInt($('#addDays').val())
             let todolist = $('#context').val()
-            $(`th[value="${addDay}"] .card-body`).append(`${todolist}<br>`)
+            let flag = true
+            if (addMonth == $('.h1').attr('value')) $(`th[value="${addDay}"] .card-body`).append(`${todolist}<br>`)
+            $.each(dataArray, (i, item) => {
+                if (new Date(item.date) == new Date(2019, addMonth, addDay)) {
+                    item.content += `${todolist}<br>`
+                    flag = false
+                }
+            })
+            if (flag) {
+                dataArray.push({
+                    date: new Date(2019, addMonth, addDay),
+                    content: $(`th[value="${addDay}"] .card-body`).html()
+                })
+            }
+            localStorage.setItem('data', JSON.stringify(dataArray))
         }
 
         function addData_click() {
@@ -185,6 +232,8 @@
         }
 
         function createTable() {
+            if (!localStorage.getItem('data')) localStorage.setItem('data', JSON.stringify([]))
+            dataArray = JSON.parse(localStorage.getItem('data'))
             $('#date_data').html('')
             let today = new Date()
             let month = today.getMonth() + count
@@ -192,11 +241,10 @@
             let years = today.getFullYear()
             let first_day = new Date(years, month, 1).getDay()
             let last_day = new Date(years, monthMargin, 0).getDate()
-            //let perday_day = new Date(years, month, 0).getDate()
             let htmlcode = ''
             let start = 1
             let flag = true
-            $('.h1').text(`${arraMonths[month]}`)
+            $('.h1').text(`${arraMonths[month]}`).attr('value', `${month}`)
             for (let i = 0; i < arrayDays.length; i++) {
                 if (i < first_day || i >= first_day + last_day) {
                     arrayDays[i] = ''
@@ -219,6 +267,7 @@
             }
             $('#date_data').html(htmlcode)
             $('#date_data th').click(th_click)
+            loadData()
         }
     </script>
 </body>
