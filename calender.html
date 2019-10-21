@@ -52,16 +52,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-2">年份:</div>
-                            <select name="" id="" style="width: 60px;">
+                            <select name="" id="addYears" style="width: 60px;">
                                 <option value="2019">2019</option>
                             </select>
                             <div class="col-2">月份:</div>
-                            <select name="" id="" style="width: 60px;">
-                                <option value="2019">10</option>
+                            <select name="" id="addMonths" style="width: 60px;">
                             </select>
                             <div class="col-2">日期:</div>
                             <select name="" id="addDays" style="width: 60px;">
-                                <option value="2019"></option>
                             </select>
                         </div>
                         <div>
@@ -73,6 +71,37 @@
                     <div class="modal-footer">
                         <button id="ButtonAdd" type="button" class="btn btn-primary" data-dismiss="modal">新增</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ModalEdit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">修改或刪除</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2">年份:</div>
+                            <div>2019</div>
+                            <div class="col-2">月份:</div>
+                            <div>10</div>
+                            <div class="col-2">日期:</div>
+                            <div class="daysdisplay"></div>
+                        </div>
+                        <div>
+                            <p>備註事項:</p>
+                            <textarea name="" id="contextdisplay" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button id="ButtonUpdate" type="button" class="btn btn-primary" data-dismiss="modal">儲存</button>
+                        <button id="ButtonDelete" type="button" class="btn btn-danger" data-dismiss="modal">刪除</button>
                     </div>
                 </div>
             </div>
@@ -94,19 +123,57 @@
         var arraMonths = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
         var count = 0
         var n = 9
+        var daysdisplay
+        var contextdisplay
         $(() => {
             createTable()
             $('.left').click(left_click)
             $('.right').click(right_click)
             $('.addData').click(addData_click)
             $('#ButtonAdd').click(ButtonAdd_click)
+            $('#ButtonUpdate').click(ButtonUpdate_click)
+            $('#ButtonDelete').click(ButtonDelete_click)
+            $('#addMonths').change(addMonths_change)
+            for (let i = 0; i < 12; i++) {
+                $('#addMonths').append(`<option value='${i}'>${i+1}</option>`)
+            }
         })
-        function ButtonAdd_click() {
-            
+        function addMonths_change() {
+            let years = $('#addYears').val()
+            let month = $('#addMonths').val()
+            let monthMargin = parseInt(month) + 1 == 12 ? 0 : parseInt(month) + 1
+            $('#addDays').html('')
+            let last_day = new Date(years, monthMargin, 0).getDate()
+            for (let i = 0; i < last_day; i++) {
+                $('#addDays').append(`<option value='${i+1}'>${i+1}</option>`)
+            }
         }
+        function ButtonDelete_click() {
+            $(`th[value='${daysdisplay}'] .card-body`).html('')
+        }
+        function ButtonUpdate_click() {
+            let displaycontext = $('#contextdisplay').val().replace(/\n/g,'<br>')
+            $(`th[value='${daysdisplay}'] .card-body`).html(displaycontext)
+        }
+        function th_click() {
+            daysdisplay = $(this).attr('value')
+            contextdisplay = $(`th[value='${daysdisplay}'] .card-body`).html().replace(/<br>/g,'\n')
+            $('.daysdisplay').html(daysdisplay)
+            $('#contextdisplay').val(`${contextdisplay}`)
+            $('#ModalEdit').modal()
+        }
+
+        function ButtonAdd_click() {
+            let addDay = $('#addDays').val()
+            let todolist = $('#context').val()
+            $(`th[value="${addDay}"] .card-body`).append(`${todolist}<br>`)
+        }
+
         function addData_click() {
             $('#ModalDataAdd').modal()
+            addMonths_change()
         }
+
         function left_click() {
             count--
             createTable()
@@ -128,6 +195,7 @@
             //let perday_day = new Date(years, month, 0).getDate()
             let htmlcode = ''
             let start = 1
+            let flag = true
             $('.h1').text(`${arraMonths[month]}`)
             for (let i = 0; i < arrayDays.length; i++) {
                 if (i < first_day || i >= first_day + last_day) {
@@ -140,17 +208,17 @@
             for (let i in arrayDays) {
 
                 if (i % 7 == 0) {
-                    htmlcode += `<tr style='height:100px'>`
+                    if (i > 7 && arrayDays[i] == '') flag = false
+                    else htmlcode += `<tr style='height:100px'>`
                 }
-                let template =
-                    `<th class='border'><div class='card' style='border:white'><div class='card-head'>${arrayDays[i]}</div><div class='card-body pl-0'></div></div></th>`
-                htmlcode += template
+                if (flag) {
+                    let template =
+                        `<th class='border' value='${arrayDays[i]}'><div class='card' style='border:white'><div class='card-head'>${arrayDays[i]}</div><div class='card-body pl-0'></div></div></th>`
+                    htmlcode += template
+                }
             }
             $('#date_data').html(htmlcode)
-            $('#addDays').html('')
-            for (let i = 0; i < last_day; i++) {
-                $('#addDays').append(`<option value='${i+1}'>${i+1}</option>`)
-            }
+            $('#date_data th').click(th_click)
         }
     </script>
 </body>
