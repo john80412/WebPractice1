@@ -126,8 +126,7 @@
                 language: 'zh-CN'
             })
             $('#guess').click(getResult)
-            // 若不設延時,日期還沒改變就會執行 getResult()
-            $('#userGuess').on('hide.datepicker',() => {setTimeout(getResult,1)})
+            $('#userGuess').on('hide.datepicker',getResult)
         })
         class horoscope {
             constructor(name, year, dateceilMonth, dateceilDay) {
@@ -189,7 +188,7 @@
         }
 
         function getResult() {
-            context = $('#userGuess').val()
+            context = $('#userGuess').datepicker('getDate', true);
             let date = Date.parse(context)
             // 正則表達式去掉所有的 /
             let sum = parseInt(context.replace(/\//g, ''), 10)
