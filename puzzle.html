@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+    </div>
+    <div class="box" data-order='0'></div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script>
+        var answer = []
+        var randomArray = []
+        var space = 0
+        $(() => {
+            createTable()
+            randomPuzzle()
+        })
+
+        function createTable() {
+            for (let i = 0; i < 3; i++) {
+                $('.container').append(`<div class='i${i} row' style='width:600px;height:200px'> </div>`)
+                for(let j = 0; j < 3; j++) {
+                    $(`.i${i}`).append(`<div id='j${j + i * 3}' class='col-4'><img style='width:200px;height:200px;border:1px solid black' alt=''></img></div>`)
+                    $(`#j${j + i * 3}`).click(slidePuzzle)
+                }
+            }
+            $('.container').append(`<input class='reset' type='button' value='重新開始'>`)
+            $('.reset').click(randomPuzzle)
+        }
+
+        function randomPuzzle() {
+            let times = 100
+            answer = []
+            randomArray = []
+            for (let i = 1; i < 10; i++) {
+                answer.push(`0${i}.jpg`)
+                randomArray.push(`0${i}.jpg`)
+            }
+            let move = [1,-1,3,-3]
+            let l = answer.length
+            let tmp = 0
+            let lastm = 0
+            space = Math.floor(Math.random() * l)
+            randomArray[space] = ' '
+            for (let i = 0; i < times; i++) {
+                let m = Math.floor(Math.random() * move.length)
+                while(space + move[m] < 0 || space + move[m] >= randomArray.length || lastm == m){
+                    m = Math.floor(Math.random() * move.length)
+                }
+                lastm = m
+                randomArray[space] = randomArray[space + move[m]]
+                space +=  move[m]
+                randomArray[space] = ' '
+            }
+            for (let i = 0; i < l; i++) {
+                $(`#j${i} img`).attr('src',`images/${randomArray[i]}`)
+            }
+        }
+        function slidePuzzle() {
+            let location = $(this).attr('id').replace('j','')
+            let flag = true
+            if (Math.abs(location - space) == 1 || Math.abs(location - space) == 3) {
+                $(`#j${location} img`).attr('src','')
+                $(`#j${space} img`).attr('src',`images/${randomArray[location]}`)
+                randomArray[space] = randomArray[location]
+                randomArray[location] = ' '
+                space = location
+            }
+            for (let i = 0; i < randomArray.length; i++) {
+                if (randomArray[i] != answer[i] && randomArray[i] != ' ') {
+                    flag = false
+                    break
+                }
+            }
+            if (flag) {
+                $(`#j${space} img`).attr('src',`images/${answer[space]}`)
+                alert('恭喜完成拼圖')
+            }
+        }
+    </script>
+</body>
+
+</html>

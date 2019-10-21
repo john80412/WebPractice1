@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <input class='addData' type="button" value="+">
+        <div class="text-center row">
+            <div class="col-4">
+                <button class="left">&lt;</button>
+            </div>
+            <div class="h1 col-4">十月</div>
+            <div class="col-4">
+                <button class="right">&gt;</button>
+            </div>
+        </div>
+        <table style="width: 1400px;margin: 0 auto;">
+            <thead>
+                <tr class="text-center">
+                    <th class='border'>星期日</th>
+                    <th class='border'>星期一</th>
+                    <th class='border'>星期二</th>
+                    <th class='border'>星期三</th>
+                    <th class='border'>星期四</th>
+                    <th class='border'>星期五</th>
+                    <th class='border'>星期六</th>
+                </tr>
+            </thead>
+            <tbody id='date_data'></tbody>
+        </table>
+        <div class="modal fade" id="ModalDataAdd">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">新增</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2">年份:</div>
+                            <select name="" id="" style="width: 60px;">
+                                <option value="2019">2019</option>
+                            </select>
+                            <div class="col-2">月份:</div>
+                            <select name="" id="" style="width: 60px;">
+                                <option value="2019">10</option>
+                            </select>
+                            <div class="col-2">日期:</div>
+                            <select name="" id="addDays" style="width: 60px;">
+                                <option value="2019"></option>
+                            </select>
+                        </div>
+                        <div>
+                            備註事項:
+                            <input type="text" name="" id="context">
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button id="ButtonAdd" type="button" class="btn btn-primary" data-dismiss="modal">新增</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script>
+        var arrayDays = [...Array(42).keys()]
+        var arraMonths = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        var count = 0
+        var n = 9
+        $(() => {
+            createTable()
+            $('.left').click(left_click)
+            $('.right').click(right_click)
+            $('.addData').click(addData_click)
+            $('#ButtonAdd').click(ButtonAdd_click)
+        })
+        function ButtonAdd_click() {
+            
+        }
+        function addData_click() {
+            $('#ModalDataAdd').modal()
+        }
+        function left_click() {
+            count--
+            createTable()
+        }
+
+        function right_click() {
+            count++
+            createTable()
+        }
+
+        function createTable() {
+            $('#date_data').html('')
+            let today = new Date()
+            let month = today.getMonth() + count
+            let monthMargin = month + 1 == 12 ? 0 : month + 1
+            let years = today.getFullYear()
+            let first_day = new Date(years, month, 1).getDay()
+            let last_day = new Date(years, monthMargin, 0).getDate()
+            //let perday_day = new Date(years, month, 0).getDate()
+            let htmlcode = ''
+            let start = 1
+            $('.h1').text(`${arraMonths[month]}`)
+            for (let i = 0; i < arrayDays.length; i++) {
+                if (i < first_day || i >= first_day + last_day) {
+                    arrayDays[i] = ''
+                } else {
+                    arrayDays[i] = start
+                    start++
+                }
+            }
+            for (let i in arrayDays) {
+
+                if (i % 7 == 0) {
+                    htmlcode += `<tr style='height:100px'>`
+                }
+                let template =
+                    `<th class='border'><div class='card' style='border:white'><div class='card-head'>${arrayDays[i]}</div><div class='card-body pl-0'></div></div></th>`
+                htmlcode += template
+            }
+            $('#date_data').html(htmlcode)
+            $('#addDays').html('')
+            for (let i = 0; i < last_day; i++) {
+                $('#addDays').append(`<option value='${i+1}'>${i+1}</option>`)
+            }
+        }
+    </script>
+</body>
+
+</html>
