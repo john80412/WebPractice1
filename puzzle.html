@@ -31,6 +31,15 @@
         var answer = []
         var randomArray = []
         var space = 0
+        var homeArray = [['10','10','10','10','10','10','10','10','10']]
+        var hidden = ''
+        var move = [1, -1, 3, -3]
+        var lastmove = 0
+        var flagstop = false
+        var interval
+        var delaydisplay = 1
+        var maxdelaydisplay = 0
+        var flagdisplay
         $(() => {
             createTable()
             randomPuzzle()
@@ -39,49 +48,137 @@
         function createTable() {
             for (let i = 0; i < 3; i++) {
                 $('.container').append(`<div class='i${i} row' style='width:600px;height:200px'> </div>`)
-                for(let j = 0; j < 3; j++) {
-                    $(`.i${i}`).append(`<div id='j${j + i * 3}' class='col-4'><img style='width:200px;height:200px;border:1px solid black' alt=''></img></div>`)
+                for (let j = 0; j < 3; j++) {
+                    $(`.i${i}`).append(
+                        `<div id='j${j + i * 3}' class='col-4'><img style='width:200px;height:200px;border:1px solid black' alt=''></img></div>`
+                    )
                     $(`#j${j + i * 3}`).click(slidePuzzle)
                 }
             }
             $('.container').append(`<input class='reset' type='button' value='重新開始'>`)
+            // $('.container').append(`<input class='home' type='button' value='回家'>`)
             $('.reset').click(randomPuzzle)
+            // $('.home').click(() => {
+            //     interval=setInterval(home_click, 1)
+            // })
         }
 
+        // function home_click() {
+        //     if (!flagstop) {
+        //         let count = 0
+        //         let arrays = [...Array(10).keys()]
+        //         let n = randomArray.indexOf(' ')
+        //         let mindistance = 100
+        //         let distance = 0
+        //         let change = 0
+        //         let flag = true
+        //         let last = homeArray[homeArray.length-1][9]
+        //         for (let i = 0; i < 4; i++) {
+        //             if ((n%3 == 0 && move[i] == -1)||(n%3 == 2 && move[i] == 1)) continue
+        //             if (n + move[i] < 0 || n + move[i] > 8 || move[i] == lastmove || last == move[i]) continue
+        //             let temp = Math.floor(Math.abs(n + move[i] - answer.indexOf(hidden))/3)+Math.abs(n + move[i] - answer.indexOf(hidden))%3
+        //             +Math.floor(Math.abs(n - answer.indexOf(randomArray[n + move[i]]))/3)+Math.abs(n - answer.indexOf(randomArray[n + move[i]]))%3
+        //             for (let j = 0; j < 4; j++) {
+        //                 if (move[i] != move[j]) {
+        //                     temp += Math.floor(Math.abs(n + move[j]-answer.indexOf(randomArray[n + move[j]]))/3)+Math.abs(n + move[j]-answer.indexOf(randomArray[n + move[j]]))%3
+        //                 }
+        //             }
+        //             distance = temp
+        //             if (mindistance > distance) {
+        //                 count++
+        //                 mindistance = distance
+        //                 change = n + move[i]
+        //             }
+        //         }
+        //         if (count == 0) {
+        //             homeArray.splice(homeArray.length-1)
+        //             return
+        //         }
+        //         randomArray[n] = randomArray[change]
+        //         randomArray[change] = ' '
+        //         $.each(homeArray, (i, item) => {
+        //             if (item != undefined) {
+        //                 if (item.toString() == randomArray.toString()) {
+        //                     homeArray.splice(i + 1)
+        //                     randomArray[change] = randomArray[n]
+        //                     randomArray[n] = ' '
+        //                 }
+        //             }
+        //         })
+        //         $.each(randomArray, (i, item) => {
+        //             arrays[i] = item
+        //         })
+        //         lastmove = n-change
+        //         arrays[9] = lastmove
+        //         homeArray.push(arrays)
+        //         console.log(homeArray)
+        //         let cc = arrays.toString().replace(`,${arrays[9]}`,'')
+        //         console.log(cc)
+        //         console.log(answer.toString())
+        //         if (cc == answer.toString()) {
+        //             flagstop = true
+        //         }
+        //     }
+        //     if (flagstop) {
+        //         gohome()
+        //         clearInterval(interval)
+        //     }
+        // }
+
+        // function display() {
+        //     let item = homeArray[delaydisplay]
+        //     for (let j = 0; j < 9; j++) {
+        //         $(`#j${j} img`).attr('src', `images/${item[j]}`)
+        //     }
+        //     if (delaydisplay >= maxdelaydisplay - 1) {
+        //         clearInterval(flagdisplay)
+        //     }
+        //     delaydisplay++
+        //     // return item
+        // }
+
+        // function gohome() {
+        //     maxdelaydisplay = homeArray.length
+        //     flagdisplay = setInterval(display, 1000)
+        // }
+
         function randomPuzzle() {
-            let times = 100
+            let times = 200
             answer = []
             randomArray = []
             for (let i = 1; i < 10; i++) {
                 answer.push(`0${i}.jpg`)
                 randomArray.push(`0${i}.jpg`)
             }
-            let move = [1,-1,3,-3]
+            move = [1, -1, 3, -3]
             let l = answer.length
             let tmp = 0
             let lastm = 0
             space = Math.floor(Math.random() * l)
+            hidden = randomArray[space]
             randomArray[space] = ' '
+            answer[answer.indexOf(hidden)] = ' '
             for (let i = 0; i < times; i++) {
                 let m = Math.floor(Math.random() * move.length)
-                while(space + move[m] < 0 || space + move[m] >= randomArray.length || lastm == m){
+                while (space + move[m] < 0 || space + move[m] >= randomArray.length || lastm == m) {
                     m = Math.floor(Math.random() * move.length)
                 }
                 lastm = m
                 randomArray[space] = randomArray[space + move[m]]
-                space +=  move[m]
+                space += move[m]
                 randomArray[space] = ' '
             }
             for (let i = 0; i < l; i++) {
-                $(`#j${i} img`).attr('src',`images/${randomArray[i]}`)
+                $(`#j${i} img`).attr('src', `images/${randomArray[i]}`)
             }
         }
+
         function slidePuzzle() {
-            let location = $(this).attr('id').replace('j','')
+            let location = $(this).attr('id').replace('j', '')
             let flag = true
             if (Math.abs(location - space) == 1 || Math.abs(location - space) == 3) {
-                $(`#j${location} img`).attr('src','')
-                $(`#j${space} img`).attr('src',`images/${randomArray[location]}`)
+                $(`#j${location} img`).attr('src', '')
+                $(`#j${space} img`).attr('src', `images/${randomArray[location]}`)
                 randomArray[space] = randomArray[location]
                 randomArray[location] = ' '
                 space = location
@@ -93,7 +190,7 @@
                 }
             }
             if (flag) {
-                $(`#j${space} img`).attr('src',`images/${answer[space]}`)
+                $(`#j${space} img`).attr('src', `images/${hidden}`)
                 alert('恭喜完成拼圖')
             }
         }
