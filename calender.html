@@ -141,7 +141,7 @@
                 $('#addMonths').append(`<option value='${i}'>${i+1}</option>`)
             }
         })
-
+        // 載入紀錄
         function loadData() {
             if (dataArray == []) return
             let month = $('.h1').attr('value')
@@ -150,9 +150,8 @@
                 let displayday = new Date(item.date).getDate()
                 $(`th[value='${displayday}'] .card-body`).html(item.content)
             })
-            console.log(dataArray)
         }
-
+        // 月份變換 日期也會變換
         function addMonths_change() {
             let years = parseInt($('#addYears').val())
             let month = parseInt($('#addMonths').val())
@@ -163,7 +162,7 @@
                 $('#addDays').append(`<option value='${i+1}'>${i+1}</option>`)
             }
         }
-
+        // 刪除
         function ButtonDelete_click() {
             $(`th[value='${daysdisplay}'] .card-body`).html('')
             $.each(dataArray, (i, item) => {
@@ -173,28 +172,35 @@
             })
             localStorage.setItem('data', JSON.stringify(dataArray))
         }
-
+        // 更新
         function ButtonUpdate_click() {
             let displaycontext = $('#contextdisplay').val().replace(/\n/g, '<br>')
             $(`th[value='${daysdisplay}'] .card-body`).html(displaycontext)
+            let flag = true
             $.each(dataArray, (i, item) => {
-                if (new Date(item.date) == new Date(2019, monthdisplay, daysdisplay)) {
+                if (new Date(item.date) - new Date(2019, monthdisplay, daysdisplay) == 0) {
                     item.content = displaycontext
+                    flag = false
                 }
             })
+            if (flag) {
+                dataArray.push({
+                    date: new Date(2019, monthdisplay, daysdisplay),
+                    content: displaycontext
+                })
+            }
             localStorage.setItem('data', JSON.stringify(dataArray))
-            console.log(dataArray)
         }
-
+        // 該日之事項修改
         function th_click() {
-            daysdisplay = parseInt((this).val())
-            monthdisplay = parseInt(('.h1').val())
-            contextdisplay = $(`th[value='${daysdisplay}'] .card-body`).html().replace(/<br>/g, '\n')
+            daysdisplay = parseInt($(this).attr('value'))
+            monthdisplay = parseInt($('.h1').attr('value'))
+            contextdisplay = $(`th[value='${daysdisplay}'] .card-body`).html() == undefined ? '' : $(`th[value='${daysdisplay}'] .card-body`).html().replace(/<br>/g, '\n')
             $('.daysdisplay').html(daysdisplay)
             $('#contextdisplay').val(`${contextdisplay}`)
             $('#ModalEdit').modal()
         }
-
+        // 新增
         function ButtonAdd_click() {
             let addMonth = parseInt($('#addMonths').val())
             let addDay = parseInt($('#addDays').val())
@@ -202,7 +208,7 @@
             let flag = true
             if (addMonth == $('.h1').attr('value')) $(`th[value="${addDay}"] .card-body`).append(`${todolist}<br>`)
             $.each(dataArray, (i, item) => {
-                if (new Date(item.date) == new Date(2019, addMonth, addDay)) {
+                if (new Date(item.date) - new Date(2019, addMonth, addDay) == 0) {
                     item.content += `${todolist}<br>`
                     flag = false
                 }
@@ -210,27 +216,27 @@
             if (flag) {
                 dataArray.push({
                     date: new Date(2019, addMonth, addDay),
-                    content: $(`th[value="${addDay}"] .card-body`).html()
+                    content: `${todolist}<br>`
                 })
             }
             localStorage.setItem('data', JSON.stringify(dataArray))
         }
-
+        // 點擊 + 按鈕
         function addData_click() {
             $('#ModalDataAdd').modal()
             addMonths_change()
         }
-
+        // 月份往左
         function left_click() {
             count--
             createTable()
         }
-
+        // 月份往右
         function right_click() {
             count++
             createTable()
         }
-
+        // 生成表格
         function createTable() {
             if (!localStorage.getItem('data')) localStorage.setItem('data', JSON.stringify([]))
             dataArray = JSON.parse(localStorage.getItem('data'))
@@ -254,14 +260,20 @@
                 }
             }
             for (let i in arrayDays) {
-
                 if (i % 7 == 0) {
                     if (i > 7 && arrayDays[i] == '') flag = false
                     else htmlcode += `<tr style='height:100px'>`
                 }
                 if (flag) {
                     let template =
-                        `<th class='border' value='${arrayDays[i]}'><div class='card' style='border:white'><div class='card-head'>${arrayDays[i]}</div><div class='card-body pl-0'></div></div></th>`
+                        `<th class='border' value='${arrayDays[i]}'>
+                            <div class='card' style='border:white'>
+                                <div class='card-head'>${arrayDays[i]}
+                                </div>
+                                <div class='card-body pl-0'>
+                                </div>
+                            </div>
+                        </th>`
                     htmlcode += template
                 }
             }
