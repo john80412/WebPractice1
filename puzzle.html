@@ -32,7 +32,7 @@
         var randomArray = []
         var space = 0
         var homeArray = [
-            ['10', '10', '10', '10', '10', '10', '10', '10', '10','10','10']
+            ['10', '10', '10', '10', '10', '10', '10', '10', '10','10']
         ]
         var hidden = ''
         var move = [1, -1, 3, -3]
@@ -43,6 +43,7 @@
         var maxdelaydisplay = 0
         var flagdisplay
         var originArray = [...Array(9).keys()]
+        var min = 0
         $(() => {
             createTable()
             randomPuzzle()
@@ -65,6 +66,7 @@
             //     for (let i = 0; i < 9; i++) {
             //         originArray[i] = randomArray[i]
             //     }
+            //     // min = calDistance(originArray,answer)
             //     interval = setInterval(home_click, 1)
             // })
         }
@@ -72,7 +74,7 @@
         // function calDistance(a, b) {
         //     let minus = 0
         //     $.each(a, (i, item) => {
-        //         minus = minus + Math.floor(Math.abs(b.indexOf(item) - i) / 3) + Math.abs(b.indexOf(item) - i) % 3
+        //         if(item != ' ') {minus = minus + Math.floor(Math.abs(b.indexOf(item) - i) / 3) + Math.abs(b.indexOf(item) - i) % 3}
         //     })
         //     return minus
         // }
@@ -81,7 +83,7 @@
         //     console.log(homeArray)
         //     if (!flagstop) {
         //         let count = 0
-        //         let arrays = [...Array(11).keys()]
+        //         let arrays = [...Array(10).keys()]
         //         let temparray = [...Array(9).keys()]
         //         let n = randomArray.indexOf(' ')
         //         let mindistance = 100
@@ -89,7 +91,7 @@
         //         let change = 0
         //         let flag = true
         //         let last = homeArray[homeArray.length - 1][9]
-        //         let calnum = 1
+        //         // let calnum = 1
         //         for (let i = 0; i < 4; i++) {
         //             if ((n % 3 == 0 && move[i] == -1) || (n % 3 == 2 && move[i] == 1)) continue
         //             if (n + move[i] < 0 || n + move[i] > 8 || move[i] == lastmove || last == move[i]) continue
@@ -100,7 +102,7 @@
         //             })
         //             temparray[n] = temparray[n+move[i]]
         //             temparray[n+move[i]] = ' '
-        //             distance = calDistance(temparray,originArray) + calDistance(temparray,answer)
+        //             distance =  calDistance(temparray,originArray)+calDistance(temparray,answer)
         //             // for (let j = 0; j < 4; j++) {
         //             //     if (move[i] != move[j]) {
         //             //         temp += Math.floor(Math.abs(n + move[j] - answer.indexOf(randomArray[n + move[j]])) / 3) +
@@ -108,23 +110,24 @@
         //             //     }
         //             // }
         //             // distance = temp
-        //             if (mindistance > distance) {
-        //                 calnum = 1
+        //             if (mindistance >= distance) {
+        //                 // calnum = 1
         //                 count++
         //                 mindistance = distance
         //                 change = n + move[i]
         //             }
-        //             else if (mindistance == distance) {
-        //                 calnum++
-        //                 count++
-        //                 mindistance = distance
-        //                 change = n + move[i]
-        //             }
+        //             // else if (mindistance == distance) {
+        //             //     // calnum++
+        //             //     count++
+        //             //     mindistance = distance
+        //             //     change = n + move[i]
+        //             // }
         //         }
         //         if (count == 0) {
-        //             while(homeArray[homeArray.length - 1][10] == 1){
-        //                 homeArray.splice(homeArray.length - 1)
-        //             }
+        //             // while(homeArray[homeArray.length - 1][10] == 1){
+        //             //     homeArray.splice(homeArray.length - 1)
+        //             // }
+        //             // lastmove = homeArray[homeArray.length - 1][9] * (-1)
         //             lastmove = homeArray[homeArray.length - 1][9] * (-1)
         //             homeArray.splice(homeArray.length - 1)
         //             return
@@ -133,7 +136,7 @@
         //         randomArray[change] = ' '
         //         $.each(homeArray, (i, item) => {
         //             if (item != undefined) {
-        //                 if (item.toString() == randomArray.toString()) {
+        //                 if (item.toString().replace(`,${item[9]}`, '') == randomArray.toString()) {
         //                     homeArray.splice(i + 1)
         //                     randomArray[change] = randomArray[n]
         //                     randomArray[n] = ' '
@@ -145,9 +148,9 @@
         //         })
         //         lastmove = n - change
         //         arrays[9] = lastmove
-        //         arrays[10] = calnum
+        //         // arrays[10] = calnum
         //         homeArray.push(arrays)
-        //         let cc = arrays.toString().replace(`,${arrays[9]}`, '').replace(`,${arrays[10]}`, '')
+        //         let cc = arrays.toString().replace(`,${arrays[9]}`, '')
         //         if (cc == answer.toString()) {
         //             flagstop = true
         //         }
@@ -193,10 +196,10 @@
             answer[answer.indexOf(hidden)] = ' '
             for (let i = 0; i < times; i++) {
                 let m = Math.floor(Math.random() * move.length)
-                while (space + move[m] < 0 || space + move[m] >= randomArray.length || lastm == m) {
+                while (space + move[m] < 0 || space + move[m] >= randomArray.length || lastm == m || (space%3==0 && move[m] == -1) || (space%3==2 && move[m] == 1)) {
                     m = Math.floor(Math.random() * move.length)
                 }
-                lastm = m
+                lastm = -m
                 randomArray[space] = randomArray[space + move[m]]
                 space += move[m]
                 randomArray[space] = ' '
