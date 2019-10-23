@@ -128,7 +128,6 @@
         var contextdisplay
         var dataArray = []
         $(() => {
-            // localStorage.clear()
             createTable()
             $('.left').click(left_click)
             $('.right').click(right_click)
@@ -166,8 +165,9 @@
         function ButtonDelete_click() {
             $(`th[value='${daysdisplay}'] .card-body`).html('')
             $.each(dataArray, (i, item) => {
-                if (new Date(item.date) == new Date(2019, monthdisplay, daysdisplay)) {
+                if (new Date(item.date) - new Date(2019, monthdisplay, daysdisplay) == 0) {
                     dataArray.splice(i, 1)
+                    return false
                 }
             })
             localStorage.setItem('data', JSON.stringify(dataArray))
@@ -175,12 +175,12 @@
         // 更新
         function ButtonUpdate_click() {
             let displaycontext = $('#contextdisplay').val().replace(/\n/g, '<br>')
-            $(`th[value='${daysdisplay}'] .card-body`).html(displaycontext)
             let flag = true
             $.each(dataArray, (i, item) => {
                 if (new Date(item.date) - new Date(2019, monthdisplay, daysdisplay) == 0) {
                     item.content = displaycontext
                     flag = false
+                    return false
                 }
             })
             if (flag) {
@@ -190,6 +190,7 @@
                 })
             }
             localStorage.setItem('data', JSON.stringify(dataArray))
+            loadData()
         }
         // 該日之事項修改
         function th_click() {
@@ -206,7 +207,6 @@
             let addDay = parseInt($('#addDays').val())
             let todolist = $('#context').val()
             let flag = true
-            if (addMonth == $('.h1').attr('value')) $(`th[value="${addDay}"] .card-body`).append(`${todolist}<br>`)
             $.each(dataArray, (i, item) => {
                 if (new Date(item.date) - new Date(2019, addMonth, addDay) == 0) {
                     item.content += `${todolist}<br>`
@@ -220,6 +220,7 @@
                 })
             }
             localStorage.setItem('data', JSON.stringify(dataArray))
+            loadData()
         }
         // 點擊 + 按鈕
         function addData_click() {
@@ -243,13 +244,12 @@
             $('#date_data').html('')
             let today = new Date()
             let month = today.getMonth() + count
-            let monthMargin = month + 1 == 12 ? 0 : month + 1
+            let monthMargin = month + 1
             let years = today.getFullYear()
             let first_day = new Date(years, month, 1).getDay()
             let last_day = new Date(years, monthMargin, 0).getDate()
             let htmlcode = ''
             let start = 1
-            let flag = true
             $('.h1').text(`${arraMonths[month]}`).attr('value', `${month}`)
             for (let i = 0; i < arrayDays.length; i++) {
                 if (i < first_day || i >= first_day + last_day) {
@@ -261,21 +261,19 @@
             }
             for (let i in arrayDays) {
                 if (i % 7 == 0) {
-                    if (i > 7 && arrayDays[i] == '') flag = false
-                    else htmlcode += `<tr style='height:100px'>`
+                    if (i > 7 && arrayDays[i] == '') break
+                    htmlcode += `<tr style='height:100px'>`
                 }
-                if (flag) {
-                    let template =
-                        `<th class='border' value='${arrayDays[i]}'>
-                            <div class='card' style='border:white'>
-                                <div class='card-head'>${arrayDays[i]}
-                                </div>
-                                <div class='card-body pl-0'>
-                                </div>
+                let template =
+                    `<th class='border' value='${arrayDays[i]}'>
+                        <div class='card' style='border:white'>
+                            <div class='card-head'>${arrayDays[i]}
                             </div>
-                        </th>`
-                    htmlcode += template
-                }
+                            <div class='card-body pl-0'>
+                            </div>
+                        </div>
+                    </th>`
+                htmlcode += template
             }
             $('#date_data').html(htmlcode)
             $('#date_data th').click(th_click)
