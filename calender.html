@@ -167,7 +167,6 @@
             $.each(dataArray, (i, item) => {
                 if (new Date(item.date) - new Date(2019, monthdisplay, daysdisplay) == 0) {
                     dataArray.splice(i, 1)
-                    return false
                 }
             })
             localStorage.setItem('data', JSON.stringify(dataArray))
@@ -175,12 +174,12 @@
         // 更新
         function ButtonUpdate_click() {
             let displaycontext = $('#contextdisplay').val().replace(/\n/g, '<br>')
+            if (displaycontext.substring(displaycontext.length-1) != '>') displaycontext += `<br>`
             let flag = true
             $.each(dataArray, (i, item) => {
                 if (new Date(item.date) - new Date(2019, monthdisplay, daysdisplay) == 0) {
                     item.content = displaycontext
                     flag = false
-                    return false
                 }
             })
             if (flag) {
@@ -276,7 +275,9 @@
                 htmlcode += template
             }
             $('#date_data').html(htmlcode)
-            $('#date_data th').click(th_click)
+            for(let i = 1;i <= last_day;i++){
+                $(`#date_data th[value='${i}']`).click(th_click)
+            }
             loadData()
         }
     </script>
