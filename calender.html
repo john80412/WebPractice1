@@ -240,7 +240,6 @@
         function createTable() {
             if (!localStorage.getItem('data')) localStorage.setItem('data', JSON.stringify([]))
             dataArray = JSON.parse(localStorage.getItem('data'))
-            $('#date_data').html('')
             let today = new Date()
             let month = today.getMonth() + count
             let monthMargin = month + 1
